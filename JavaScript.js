@@ -1,3 +1,13 @@
+// ZMIENNA
+	// Składa się z:
+	// Nazwa (identyfikator)
+	// Miejsce w pamięci (adres)
+	// Wartość
+
+	// Dwa procesy
+		// Deklaracja
+		// Inicjalizacja (przypisanie wartości)
+
 // var, let i const
 
 var a = "a - zakres globalny";
@@ -120,4 +130,14 @@ function mojaFunkcja() {
 
 //  Immediately Invoked Function Expression (IIFE)
 //  Dobry link doo tego: https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
-// Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
+//  Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
+
+//  TYPY PROSTE: string, numer, Boolean, null, undefined, symbol
+// 	Przy przypisaniu jednej zmiennej do drugiej:
+// 	1. Tworzona jest nowa kopia wartości
+// 	2. Nowa wartość ma przydzielone nowe (odrębne) miejsce w pamięci
+// 	3. Nowa wartość nie ma żadnych związków ze starą wartością
+
+//  TYP REFERENCYJNY: Obiekty przede wszystkim Objekt ogólny, funkcja, tablica
+
+// SKOŃĆZYŁEŚ NA 3:40 o obiektahc
