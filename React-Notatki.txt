@@ -1,0 +1,192 @@
+React Hooks 
+	Nowa funkcja w React, która umożliwia wprowadzanie stanu do "functional component", wcześniej była tylko możliwość skorzystania ze stanu w class based components.
+	Wcześniej jak chcieliśmy używać componentDidMount, ComponentDidUpdate czy setState, musieliśmy właśnie tworzyć class based components
+
+Redux
+	Menadżer stanu aplikacji. Pożyteczny przy bardziej rozbudowanych aplikacjach
+
+	Mamy jeden zbiorczy store, który kontroluje informacje o naszej aplikacji.
+
+	To jak kompletny store w danym momencie wygląda, to jest stan naszej aplikacji
+
+	Stan w redux jest tylko do odczytu, dlatego za każdym razem jak coś się zmienia w state, to my tworzymy nową wersję statu, a nie tworzymy nowego
+
+	Zmiany, które zachodzą w naszym State, przechodzą przez Reducer. Reducer, to czysta funkcja, ktora nie zmienia już istniejących danych (masz o tym w kursie udemy)
+		UWAGA! Reducer za każdym razem zwraca nam nowy stan, więc nie możemy "pogubić" reszty obiektu. Poniżej przykład
+
+		import { createStore } from 'redux';
+
+		const initialMovies = {
+			listName: 'Favourite',
+			movies: [
+				'Rambo III',
+				'Hakerzy',
+				'Matrix'
+			]
+		}
+
+		// Poniżej Reducer
+		function movies(state = initialMovies, action) {
+			switch (action.type) {
+				case 'RESET':
+					return {
+						...state, // musimy uzyć tutaj operatora spread na state, po to żeby nie zgubić reszty obiektu (reszty stanu)
+						movies: []
+					}
+				default:
+					return state
+			}
+		}
+
+		const store =  createStore(movies);
+		// Dla celów demonstracyjnych zapsizemy store w window
+		window.store = store;
+
+		// W tym momencie jak w consoli przeglądarki wywołamy "window.dispatch({type: "RESET"});" to reducer zwróci taki store:
+			listName: 'Favourite',
+			movies: []
+		// i dobrze, bo o to chodziło, bez użycia tego "...state", w akcji reset nowy stan byłby:
+			movies: []
+		// czyli zgubilibyśmy nasze listName: "Favourite"
+
+		Dodatkowy trudniejszy przykłąd z dodanie filmu
+		case: "ADD":
+			return {
+				...state,
+				movies: [...state.movies, action.movie] // poniżej w tablicy movies napierw dodajemy aktualna tablice movies (...state.movies), a pozniej nowy film, ktory bedzie przekazany w akcji czyli (action.movie)
+			}
+
+		Dalej W CONSOLI "window.dispatch({type: "RESET", movie: 'Titanic'});"	
+
+	Reducer, musi defaultowo zwracać state
+
+	Akcje przekazane do naszego Reducera pozwalają zmieniać stan
+
+	za pomocą dispatch przekazujemy akcję, w dokumentacji jest, że jest to jedyny sposób do zmiany State
+
+	Debagowanie projektu redux - za pomocą REDUX-DEVTOOLS. REACT-DEVTOOLS
+	W create store też trzeba jeden parametr dodać by widziec wszystkie te akcje i zainy state'a
+
+	Poniżej więcej na temat łączenie reducerów (Przykład) - Troche tu sie zmieniło
+	Pamietaj, ze teraz type akcji nie może być tylko ADD, tlyko ADD_MOVIE i ADD_ACTOR
+
+		import { createStore, combineReducers } from 'redux';
+
+		const initialMovies = {
+			listName: 'Favourite',
+			list: [
+				'Rambo III',
+				'Hakerzy',
+				'Matrix'
+			]
+		}
+
+		const InitialActors = {
+			listName: 'Best',
+			list: [
+				'Tom Hanks', 'Julia Roberts', 'Angelina Jolie'
+			]
+		}
+
+		// Poniżej Reducer
+		function movies(state = initialMovies, action) {
+			switch (action.type) {
+				case 'RESET':
+					return {
+						...state, 
+						list: []
+					}
+				case: "ADD_MOVIE":
+					return {
+					...state,
+					list: [...state.list, action.item] 
+				}
+				default:
+					return state
+			}
+		}
+
+		// Poniżej Reducer nr 2
+		function actors(state = initialActors, action) {
+			switch (action.type) {
+				case 'RESET':
+					return {
+						...state, 
+						list: []
+					}
+				case: "ADD_ACTORS":
+					return {
+					...state,
+					list: [...state.list, action.item] 
+				}
+				default:
+					return state
+			}
+		}
+
+		// Poniżej łączenie reducerów - w parametrze przekazujemy obiekt z naszymi reducerami :)
+		const allReducers = combineReducers({movies, actiors})
+
+		// Dodatkowo jeśli chcemy sobie nazwać drzewo inaczej niz nasza zmeinna to możemy:
+		onst allReducers = combineReducers({filmy: movies, actiors})
+
+		const store =  createStore(allReducers);
+
+		// Poniżej o "Action creators" - Kreatory akcji
+
+		// możemy zawsze dodać akcję za pomocą:
+		store.dispatch({type: 'ADD_ACTOR', item: 'Cezary Pazura'});
+		// Ten zapis powyżej jest dobry, ale jak mamy duzo akcji, to zeby sobie uprośić zycie robimy "action creators", bo niewygodne będzie pisanie ciągle "dispatch" itd.
+
+		Poniżej Kreator akcji - kreator akcji to funckja, która opakowuje obiekt przekazywany do dispatch
+		const addActor = item => ({type: 'ADD_ACTOR', item})
+		store.dispatch(addActor('Brad Pitt'));
+
+		Dodatkowo inny sposób na obługe actionCreators to "bindActionCreators"
+
+		import { createStore, combineReducers, bindActionCreators } from 'redux';
+
+		const actorsActions = bindActionCreators({add: addActor}, store.dispatch)
+		actorsActions.add('Jan Frycz');
+
+		Użycie Reduxa w naszej reactowej aplikacji:
+		Najpeirw musimy w głównym pliku App.js lub index.js, dołączyć Providera
+		import { Provider } from 'react-redux';
+
+		Pozniej improtujemy naszego stora, ktroego lepiej trzymac  wosobnym pliku
+		import store from './store'
+
+		Później oplatamy naszą aplikację w <Provder> czyli będzie coś jak:
+
+		 ReactDOM.render(
+		 	<Provder store={store}>
+		 		<app />
+	 		</Provider>
+		 ), getElementById('root'));
+
+		 Żeby teraz użyć naszego strore w poszczególnych componentach, musimy do podłączyć do reduxa:
+		 	- W danym componencie importować "connect"
+		 		import { connect } from 'react-redux';
+	 		- i na końću pliku conenct, ktory przyjmuje 2 parametry
+
+	 		w mapStateToProps, mapujemy soibe elmenty ze stora do props w danym komponencie
+	 			export default connect(mapstateToProps)(NaszKomponent)
+
+			Przykład componentu poniżej
+
+			import React from 'react'
+			import { connect } from 'react-redux';
+
+			const MoviesContainer = (props) =>
+				<ul>
+					{props.movies.list.map(movie => <li>{movie}</li>)}
+				</ul>
+
+			const mapStateToProps = state => ({
+				movies. state.movies
+			})
+
+			export default connect(mapStateToProps, {})(MoviesContainer)
+
+			Dispatch z poziomu React - wysylanie akcji z poziomu react
+			
