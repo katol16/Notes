@@ -10,76 +10,76 @@
 
 // var, let i const
 
-var a = "a - zakres globalny";
-let b = "b - zakres globalny"
-const c = "c - zakres globalny"
+	var a = "a - zakres globalny";
+	let b = "b - zakres globalny"
+	const c = "c - zakres globalny"
 
-{
-	var a = "a - zakres lokalny";
-	let b = "b - zakres lokalny";
-	const c = "c - zakres lokalny"
+	{
+		var a = "a - zakres lokalny";
+		let b = "b - zakres lokalny";
+		const c = "c - zakres lokalny"
+		console.log(a); // "a - zakres lokalny";
+		console.log(b); // "b - zakres lokalny";
+		console.log(c); // "c - zakres lokalny";
+	}
+
 	console.log(a); // "a - zakres lokalny";
-	console.log(b); // "b - zakres lokalny";
-	console.log(c); // "c - zakres lokalny";
-}
+	console.log(b); // "b - zakres globalny";
+	console.log(c); // "c - zakres globalny";
 
-console.log(a); // "a - zakres lokalny";
-console.log(b); // "b - zakres globalny";
-console.log(c); // "c - zakres globalny";
+	// let, const - zasięg zmiennych w zakresie blokowym (w tym zakres funkcji). var - zakres funkcji (bez zakresu blokowego)
 
-// let, const - zasięg zmiennych w zakresie blokowym (w tym zakres funkcji). var - zakres funkcji (bez zakresu blokowego)
-
-// Ponowna deklaracja
-	// let,const - błąd 
-		// przykład
-			// let a = 5;
-			// let a = 10; // błąd
-			// const a = 5;
-			// const a = 10; // błąd
-	// var - nadpisuje
-		// przykład
-			// var a = 5;
-			// var a = 10; // nie ma błędu
+	// Ponowna deklaracja
+		// let,const - błąd
+			// przykład
+				// let a = 5;
+				// let a = 10; // błąd
+				// const a = 5;
+				// const a = 10; // błąd
+		// var - nadpisuje
+			// przykład
+				// var a = 5;
+				// var a = 10; // nie ma błędu
 
 // HOISTING - przenoszenie DEKLARACJI zmiennej var i funkcji, na sam początek zakresu kodu. 
-// Czyli, jeżeli jest w zakresie golbalnym (funckja lub var), to na początek zakresu globalnego, jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
+	// Czyli, jeżeli jest w zakresie golbalnym (funckja lub var), to na początek zakresu globalnego, jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
 
-console.log(zmienna);
+	console.log(zmienna);
 
-var zmienna = 1;
+	var zmienna = 1;
 
-mojaFunkcja();
+	mojaFunkcja();
 
-function mojaFunkcja() {
-	console.log("hello");
+	function mojaFunkcja() {
+		console.log("hello");
 
-	console.log(zmienna); // odczyta normlanie funkcje
+		console.log(zmienna); // odczyta normlanie funkcje
 
-	// console.log(nieistniejeTaZMienna); // RefferenceError
+		// console.log(nieistniejeTaZMienna); // RefferenceError
 
-	console.log(istniejeTutaj);
+		console.log(istniejeTutaj);
 
-	var istniejeTutaj = 2;
+		var istniejeTutaj = 2;
 
-	funkcjaWewnetrzna();
+		funkcjaWewnetrzna();
 
-	function funkcjaWewnetrzna() {
-		console.log("Wewnątrz"); // zadziała
-	}
-};
+		function funkcjaWewnetrzna() {
+			console.log("Wewnątrz"); // zadziała
+		}
+	};
 
-// generalnie do poniższego przykłądu z hoistingiem możemy podjeśc tak
-// 	Przykład:
-// 		console.log(d);
-// 		var d = 22;
-// 	Jak widzi to program:
-// 		var d;
-// 		console.log(d);
-// 		d = 22;
-	// Czyli deklaracja zmeinnej przenoszona na góre scope'a
+	// generalnie do poniższego przykłądu z hoistingiem możemy podjeśc tak
+	// 	Przykład:
+	// 		console.log(d);
+	// 		var d = 22;
+	// 	Jak widzi to program:
+	// 		var d;
+	// 		console.log(d);
+	// 		d = 22;
+		// Czyli deklaracja zmeinnej przenoszona na góre scope'a
 
-// console.log(istniejeTutaj); // RefferenceError
-// funkcjaWewnetrzna(); // RefferenceError
+	// console.log(istniejeTutaj); // RefferenceError
+	// funkcjaWewnetrzna(); // RefferenceError
 
 // HOISTING w let i const - NIE ZADZIAŁA! będzie w "TYMACZASOWEJ STREFIE ŚMIERCI"
 	// let i const
@@ -129,8 +129,29 @@ function mojaFunkcja() {
 
 
 //  Immediately Invoked Function Expression (IIFE)
-//  Dobry link doo tego: https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
-//  Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
+	//  Dobry link doo tego: https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
+	//  Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
+
+//  FAKING NAMESPACES
+	//  Generalnie tych faking namespaces używamy przy budownaiu np. frameworka, albo biblioteki
+	//  Chodzi o to, żeby tworzyć dla naszych zmiennych pewien konterner w postaci obiektu,
+	//  żeby te zmeinne nie były dostępne globalnie i nikt ich nie nadpisał.
+	//  Przykład:
+	var english = {
+		greetings: "Nasza zmienna"
+	};
+	console.log(english.greetings);
+
+// FUNKCJE
+	// Function is a special type of Object!
+	function greet() {
+		console.log('Hi');
+	}
+
+	// ponieważ funckje to obiekty, możemy po kropce się odwołać i dodać właściwość do funkcji
+	greet.language = "english";
+	console.log(greet); // dostaneisz tekst całej funkcji, którą napsiałeś
+	console.log(greet.language); // zwróci 'english'
 
 //  TYPY PROSTE: string, numer, Boolean, null, undefined, symbol
 	// 	Przy przypisaniu jednej zmiennej do drugiej:
