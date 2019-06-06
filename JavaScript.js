@@ -30,7 +30,7 @@ console.log(c); // "c - zakres globalny";
 // let, const - zasięg zmiennych w zakresie blokowym (w tym zakres funkcji). var - zakres funkcji (bez zakresu blokowego)
 
 // Ponowna deklaracja
-	// let,const - błąd 
+	// let,const - błąd
 		// przykład
 			// let a = 5;
 			// let a = 10; // błąd
@@ -41,7 +41,7 @@ console.log(c); // "c - zakres globalny";
 			// var a = 5;
 			// var a = 10; // nie ma błędu
 
-// HOISTING - przenoszenie DEKLARACJI zmiennej var i funkcji, na sam początek zakresu kodu. 
+// HOISTING - przenoszenie DEKLARACJI zmiennej var i funkcji, na sam początek zakresu kodu.
 // Czyli, jeżeli jest w zakresie golbalnym (funckja lub var), to na początek zakresu globalnego, jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
 
 console.log(zmienna);
@@ -95,7 +95,7 @@ function mojaFunkcja() {
 	// Teraz wpisując w przeglądarce w consoli jedno z powyższych (globVar, globLet, globConst)
 	// to otrzymamy normlanie ich wartości, natomiast jak wpsizemy obiekt globlany window i zoabczymy jego podgląd, to zobaczymy, że zmienna globVar będzie w niej zapisana jako wartość
 	// będzie -> globVar: 1
-	// natomiast NIE BĘDZIE w obiekcie window globLet i globConst! 
+	// natomiast NIE BĘDZIE w obiekcie window globLet i globConst!
 
 	// LET vs. CONST
 	// Przypisać nową wartośc możesz tylko do let, do const nie, bo to stała!
@@ -128,10 +128,6 @@ function mojaFunkcja() {
 	// Użyj var jeśli z jakiegoś powodu zależy Ci na jego odmiennych właściwościach.
 
 
-//  Immediately Invoked Function Expression (IIFE)
-//  Dobry link doo tego: https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
-//  Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
-
 //  TYPY PROSTE: string, numer, Boolean, null, undefined, symbol
 	// 	Przy przypisaniu jednej zmiennej do drugiej:
 	// 	1. Tworzona jest nowa kopia wartości
@@ -150,3 +146,100 @@ function mojaFunkcja() {
 	// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
 	// 3. Adres referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu
 
+
+// FUNKCJE
+	// Function scope
+		// Variables defined inside a function CANNOT be accessed from anywhere outside the function,
+		// because the variable is defined only in the scope of the function. However, a function can access all variables and functions
+		// defined inside the scope in which it is defined. In other words, a function defined in the global scope can access all variables defined in the global scope.
+		// A function defined inside another function can also access all variables defined in its parent function and any other variable to which the parent function has access.
+			// Przykład:
+				// The following variables are defined in the global scope
+				var num1 = 20,
+					num2 = 3,
+					name = 'Chamahk';
+
+				// This function is defined in the global scope
+				function multiply() {
+					return num1 * num2;
+				}
+
+				multiply(); // Returns 60
+
+				// A nested function example
+				function getScore() {
+					var num1 = 2,
+						num2 = 3;
+
+					function add() {
+						// var example = "zewnętrzna funkcja getScore nie może z tego skorzystać";
+						console.log(name + ' scored ' + (num1 + num2));
+						return name + ' scored ' + (num1 + num2);
+					}
+
+					// console.log(example); //  ReferenceError: example is not defined
+
+					return add();
+				}
+
+				getScore(); // Returns "Chamahk scored 5"
+
+				// The inner function forms a closure: the inner function can use the arguments and variables of the outer function,
+				// while the outer function cannot use the arguments and variables of the inner function.
+
+	// Muliply-nested functions
+		// Functions can be multiply-nested, i.e. a function (A) containing a function (B) containing a function (C). Both functions B and C form closures here,
+		// so B can access A and C can access B. In addition, since C can access B which can access A, C can also access A. Thus,
+		// the closures can contain multiple scopes; they recursively contain the scope of the functions containing it. This is called scope chaining. (Why it is called "chaining" will be explained later.)
+			var d = 4;
+			function A(x) {
+				function B(y) {
+					function C(z) {
+						console.log(x + y + z + d);
+					}
+					C(3);
+				}
+				B(2);
+			}
+			A(1); // logs 10 (1 + 2 + 3 + 4)
+		// In this example, C accesses B's y and A's x. This can be done because:
+		// 	1. B forms a closure including A, i.e. B can access A's arguments and variables.
+		//  2. C forms a closure including B.
+		// 	3. Because B's closure includes A, C's closure includes A, C can access both B and A's arguments and variables. In other words, C chains the scopes of B and A in that order.
+
+		// 	The reverse, however, is not true. A cannot access C, because A cannot access any argument or variable of B, which C is a variable of. Thus, C remains private to only B.
+
+	// UWAGA!
+		// Powyższy przykłąd nie zadziała jak wywołamy go za pomocą A(1)(2)(3)
+		// Musimy to zrobić tak, że za każdym razem zwracamy w funkcji funkcję, wtedy zadziałą, czyli:
+		// var d = 4;
+		// function A(x) {
+		// 	return function B(y) {
+		// 		return function C(z) {
+		// 			console.log(x + y + z + d);
+		// 		}
+		// 	}
+		// }
+		// A(1)(2)(3) // logs 10 (1 + 2 + 3 + 4)
+
+	// Name conflicts
+		// When two arguments or variables in the scopes of a closure have the same name, there is a name conflict.
+		// More inner scopes take precedence, so the inner-most scope takes the highest precedence, while the outer-most scope takes the lowest.
+		// This is the scope chain. The first on the chain is the inner-most scope, and the last is the outer-most scope. Consider the following:
+			function outside() {
+				var x = 5;
+				function inside(x) {
+					return x * 2;
+				}
+				return inside;
+			}
+			outside()(10); // returns 20 instead of 10
+		// The name conflict happens at the statement return x and is between inside's parameter x and outside's variable x.
+		// The scope chain here is {inside, outside, global object}.
+		// Therefore inside's x takes precedences over outside's x, and 20 (inside's x) is returned instead of 10 (outside's x).
+
+
+
+//  Immediately Invoked Function Expression (IIFE)
+		//  Dobry link doo tego: https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
+		//  Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
