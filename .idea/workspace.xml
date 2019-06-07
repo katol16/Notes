@@ -5,7 +5,11 @@
     <list default="true" id="c6423d11-129e-47d3-a266-f85bbb660384" name="Default Changelist" comment="">
 =======
     <list default="true" id="2dc62c0d-835f-4fab-b0cb-0f11305f0570" name="Default Changelist" comment="">
+<<<<<<< HEAD
 >>>>>>> ea6f031762ceb59e38feb33f1b05f5d6bfa81f8f
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
       <change beforePath="$PROJECT_DIR$/JavaScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,12 +32,17 @@
         <entry file="file://$PROJECT_DIR$/JavaScript.js">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <state relative-caret-position="231">
               <caret line="142" column="35" selection-start-line="142" selection-start-column="35" selection-end-line="142" selection-end-column="35" />
 =======
             <state relative-caret-position="426">
               <caret line="215" column="26" lean-forward="true" selection-start-line="215" selection-start-column="26" selection-end-line="215" selection-end-column="26" />
 >>>>>>> ea6f031762ceb59e38feb33f1b05f5d6bfa81f8f
+=======
+            <state relative-caret-position="859">
+              <caret line="284" column="4" selection-start-line="284" selection-start-column="4" selection-end-line="284" selection-end-column="50" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -78,11 +87,18 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
+<<<<<<< HEAD
     <option name="x" value="147" />
     <option name="y" value="117" />
     <option name="width" value="1293" />
     <option name="height" value="684" />
 >>>>>>> ea6f031762ceb59e38feb33f1b05f5d6bfa81f8f
+=======
+    <option name="x" value="270" />
+    <option name="y" value="141" />
+    <option name="width" value="1336" />
+    <option name="height" value="666" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -116,11 +132,16 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
 <<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
 =======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../node_app/node_app" />
+=======
+    <property name="last_opened_file_path" value="$USER_HOME$/projekty/mnt_domeny" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -160,11 +181,16 @@
       <updated>1559724340634</updated>
       <workItem from="1559724342112" duration="2169000" />
       <workItem from="1559805035631" duration="6436000" />
+<<<<<<< HEAD
 >>>>>>> ea6f031762ceb59e38feb33f1b05f5d6bfa81f8f
+=======
+      <workItem from="1559893869220" duration="4067000" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
 <<<<<<< HEAD
     <option name="totallyTimeSpent" value="1499000" />
   </component>
@@ -181,12 +207,15 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
 =======
     <option name="totallyTimeSpent" value="8605000" />
+=======
+    <option name="totallyTimeSpent" value="12672000" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-2" width="1920" height="1202" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14407684" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1456777" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
 >>>>>>> ea6f031762ceb59e38feb33f1b05f5d6bfa81f8f
@@ -241,9 +270,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/JavaScript.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="426">
           <caret line="215" column="26" lean-forward="true" selection-start-line="215" selection-start-column="26" selection-end-line="215" selection-end-column="26" />
 >>>>>>> ea6f031762ceb59e38feb33f1b05f5d6bfa81f8f
+=======
+        <state relative-caret-position="859">
+          <caret line="284" column="4" selection-start-line="284" selection-start-column="4" selection-end-line="284" selection-end-column="50" />
+>>>>>>> afadfd021992d443663cb336a6eacd0866aa1623
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
