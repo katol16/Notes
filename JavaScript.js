@@ -146,6 +146,48 @@ function mojaFunkcja() {
 	// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
 	// 3. Adres referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu
 
+// FUNCTION STATEMENTS(DECLARATION) AND FUNCTION EXPRESSIONS
+
+	// Expression: A unit of a code that results in a Value
+	// It doesn't have to save to a variable
+	// Expression returns a value!
+		// Przykłady:
+			// a = 3;
+			// 1 + 2;
+			// a = {greeting: 'hi'}
+
+	// Statement: np. 'if', czyli statement, tylko robi jakąs robotę, ale wartość zwraca expression
+		// Przykłądy:
+			// var a;
+			// if (a===3) {
+			// wewnątrz już będzie expression, bo if zwróci 'true' lub 'false'
+			// }
+
+	// Poniżej przykład z Function statement, bo nie zwraca żadnej wartości i zaczyna się od słowa "function"
+		greet3();
+		function greet3() {
+			console.log('hi!');
+		};
+
+	// Poniżej przykład Function expression, bo masz '=' masz jakąś zmienną, która posiada jakąś wartość (w tym przypadku funkcję - czyli special object)
+		var anonymousGreet = function() {
+			console.log('hi!');
+		};
+
+	// FUNCTION DECLARATION HOISTING
+		// Function declarations in JavaScript are hoisted to the top of the enclosing function or global scope. You can use the function before you declared it:
+			hoisted(); // logs "foo"
+
+			function hoisted() {
+				console.log('foo');
+			}
+
+	// FUNCTION EXPPRESSIONS are NOT HOISTED
+		// 	notHoisted(); // TypeError: notHoisted is not a function
+		//
+		// 	var notHoisted = function() {
+		// 		console.log('bar');
+		// 	};
 
 // FUNKCJE
 	// Function scope
