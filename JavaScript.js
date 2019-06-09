@@ -1,3 +1,6 @@
+UWAGA! KOD nie będzie tutaj działał, bo sporo zmeinnych jest nadpisywanych
+ale sam kod jest raczej porpawny. Zrób z tego wiele plików np "Clousures", "Functions", itd.
+
 // ZMIENNA
 	// Składa się z:
 	// Nazwa (identyfikator)
@@ -23,11 +26,6 @@
 		console.log(c); // "c - zakres lokalny";
 	}
 
-	console.log(a); // "a - zakres lokalny";
-
-	console.log(b); // "b - zakres lokalny";
-	console.log(c); // "c - zakres lokalny";
-}
 
 console.log(a); // "a - zakres lokalny";
 console.log(b); // "b - zakres globalny";
@@ -47,8 +45,11 @@ console.log(c); // "c - zakres globalny";
 			// var a = 5;
 			// var a = 10; // nie ma błędu
 
+
+
 // HOISTING - przenoszenie DEKLARACJI zmiennej var i funkcji, na sam początek zakresu kodu.
-// Czyli, jeżeli jest w zakresie golbalnym (funckja lub var), to na początek zakresu globalnego, jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
+// Czyli, jeżeli jest w zakresie golbalnym (funckja lub var), to na początek zakresu globalnego,
+// jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
 	console.log(zmienna);
 
 	var zmienna = 1;
@@ -58,15 +59,15 @@ console.log(c); // "c - zakres globalny";
 	function mojaFunkcja() {
 		console.log("hello");
 
-		console.log(zmienna); // odczyta normlanie funkcje
+		console.log(zmienna); // odczyta normlanie zmienna
 
 		// console.log(nieistniejeTaZMienna); // RefferenceError
 
-		console.log(istniejeTutaj);
+		console.log(istniejeTutaj); // zwróci undefined
 
 		var istniejeTutaj = 2;
 
-		funkcjaWewnetrzna();
+		funkcjaWewnetrzna(); // zadziała, czyliz wróci "wewnątrz"
 
 		function funkcjaWewnetrzna() {
 			console.log("Wewnątrz"); // zadziała
@@ -81,15 +82,19 @@ console.log(c); // "c - zakres globalny";
 	// 		var d;
 	// 		console.log(d);
 	// 		d = 22;
-		// Czyli deklaracja zmeinnej przenoszona na góre scope'a
+	// Czyli deklaracja zmeinnej przenoszona na góre scope'a
 
 	// console.log(istniejeTutaj); // RefferenceError
-	// funkcjaWewnetrzna(); // RefferenceError
+	// funkcjaWewnetrzna(); // RefferenceError - bo function declaration są hoisted, a nie same wywołania
+
+
 
 // HOISTING w let i const - NIE ZADZIAŁA! będzie w "TYMACZASOWEJ STREFIE ŚMIERCI"
 	// let i const
 	//	console.log(d); // wyrzuci błąd
 	//	let d = 22;
+
+
 
 // WŁAŚCIWOŚCI OBIEKTU GLOBALNEGO
 
@@ -132,6 +137,8 @@ console.log(c); // "c - zakres globalny";
 	// Jak nie możesz użyć const, użyj let.
 	// Użyj var jeśli z jakiegoś powodu zależy Ci na jego odmiennych właściwościach.
 
+
+
 //  FAKING NAMESPACES
 	//  Generalnie tych faking namespaces używamy przy budownaiu np. frameworka, albo biblioteki
 	//  Chodzi o to, żeby tworzyć dla naszych zmiennych pewien konterner w postaci obiektu,
@@ -141,6 +148,8 @@ console.log(c); // "c - zakres globalny";
 		greetings: "Nasza zmienna"
 	};
 	console.log(english.greetings);
+
+
 
 // FUNKCJE
 	// Function is a special type of Object!
@@ -154,6 +163,9 @@ console.log(c); // "c - zakres globalny";
 	console.log(greet.language); // zwróci 'english'
 
 // FUNCTION STATEMENTS(DECLARATION) AND FUNCTION EXPRESSIONS
+
+	// Pamiętaj, że moze być zwykłe EXPRESSION, alb zwykły STATMENT
+	// oraz FUNCTION STATEMENTS(DECLARATION) AND FUNCTION EXPRESSIONS
 
 	// Expression: A unit of a code that results in a Value
 	// It doesn't have to save to a variable
@@ -176,13 +188,15 @@ console.log(c); // "c - zakres globalny";
 			console.log('hi!');
 		};
 
-	// Poniżej przykład Function expression, bo masz '=' masz jakąś zmienną, która posiada jakąś wartość (w tym przypadku funkcję - czyli special object)
+	// Poniżej przykład Function expression, bo masz '=' masz jakąś zmienną,
+	// która posiada jakąś wartość (w tym przypadku funkcję - czyli special object)
 		var anonymousGreet = function() {
 			console.log('hi!');
 		};
 
 	// FUNCTION DECLARATION HOISTING
-		// Function declarations in JavaScript are hoisted to the top of the enclosing function or global scope. You can use the function before you declared it:
+		// Function declarations in JavaScript are hoisted to the top of the enclosing function or global scope.
+		// You can use the function before you declared it:
 			hoisted(); // logs "foo"
 
 			function hoisted() {
@@ -292,6 +306,164 @@ console.log(c); // "c - zakres globalny";
 		//  Dobry link doo tego: https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
 		//  Generalnie używamy, żeby zapezpieczyć naszą funkcję przed ponownym wywołaniem. (Doczytaj jeszcze)
 
+			(function(name) {
+				console.log('inside IIFE: Hello ' + name);
+			})("Karol"); // IIFE (klasyczyny przykład)
+
+			// Poniżej dla celów demonstracyjnych zrobiłęm nazwaną (IIFE), co troche nie ma sensu, bo po co to robic, jak i tak nie mozesz sie do niej odwołać.
+			// Tutaj po prostu abyś zoabczył, że takie coś też zadziała i consola zwróci 'inside IIFE: Hello Karol'
+			(function nazwana(name) {
+				console.log('inside IIFE: Hello ' + name);
+			})("Karol");
+
+			// Nie Odwołasz się w ten sposób dot ej funckji, bo jest opleciona w nawiasy
+				// nazwana("Kamil");
+
+			// Pamiętaj, że to wyrzuci błąd, Ponieważ syntax parser wymaga po słowie kluczowym nazwy funkcji,
+			// wymaga, zeby to było function expression, a w naszym przypadku to będzie function statement!
+				// function(name) {
+				// 	return 'Hello ' + name;
+				// }
+
+			// Więc jeśli chcesz mieć function expression zamiast function statement to robisz taki trik:
+				(function(name) {
+					return 'Hello ' + name;
+				});
+			// Oczywiście nie wywołasz teraz tej funkcji, jest to zwykły statement
+				// (function nazwana(name) {
+				// 	console.log('inside IIFE: Hello ' + name);
+				// })(imie);
+
+
+			// ZALETA IIFE
+				// Tworzymy nowy plik greet.js ( w załozeniu mamy ten plik a tam po prostu var greetingTwo = "Hola"; )
+				// w pliku greet.js tworzymy zmienną greetingTwo, ktora i tak zostanie nadpisna w poniższej funkcji
+
+				// Pamiętajmy jednak, ze jeśli tutaj zrobimy:
+					// console.log("z pliku greet.js: "+greetingTwo); // to wyswietli 'Hola' z pliku greet.js
+
+					// (function(name) {
+					// 	var greetingTwo = "Hello";
+					// 	console.log(greetingTwo + ' ' + name);
+					// }('John')); // IIFE
+
+				// Pamiętajmy jednak, ze jeśli tutaj zrobimy:
+					// console.log("z pliku greet.js: "+greetingTwo); // to wyswietli 'Hola' z pliku greet.js
+
+				// wiec plus IIFE, jest taki, że mamy pewność, ze np. zmienna zapsiana w IIFE, nie będzie naruszana przez inny kod
+				// ani nie naruszy innego kodu, bo nie jesteś w stanie jej wywołać (chyba o to chodzi)
+
+
+// CLOUSURES - DOMKNIĘCIA
+	// Chodzi w gruncie o dostep do zmiennje spoza aktualnego zasięgu
+	// Załóżmy, że chcemy uzyskać dostęp do zmiennej poza funkcją, w któ©ej ta zmienna istnieje
+
+	// Poniżej przykłądy, które mogą być technicznie uznawane za "Clousres", ale to nie do końca jest Clousures co do zasady
+	// Przykład 1 - RETURN
+		function example() {
+			const insideVar = "zmienna stworzona w funkcji";
+			return insideVar;
+		}
+
+		let outsideVar = example();
+		console.log(outsideVar); // zwróci "zmienna stworzona w funkcji"
+
+		// Jeśli chcemy zwrócić kilka zmiennych to:
+			function example2() {
+				const insideVar1 = "zmienna1 stworzona w funkcji";
+				const insideVar2 = "zmienna2 stworzona w funkcji";
+				return [insideVar1, insideVar2];
+			}
+
+			let outsideVar1 = example2()[0];
+			let outsideVar2 = example2()[1];
+			console.log(outsideVar1); // zwróci "zmienna1 stworzona w funkcji"
+			console.log(outsideVar2); // zwróci "zmienna2 stworzona w funkcji"
+
+	// Przykład 2 - ZAKRESY
+		// Tutaj też to jest uznawane troche za Clousrues,
+		// bo funkcja userInfo, korzysta ze stałej zdefiniowanej wyżej, w zakresie globlanym (userAge)
+		// Wciąż to nie jest do końća CLousures
+		// Zasięg leksykalny jest częścią mechanizmu CLOSURE.
+		const userAge = 23;
+
+		const userInfo = function() {
+			const userName = "Adam";
+			return userName + userAge
+		}
+
+		const newUser = userInfo();
+		console.log(newUser);
+
+	// TERAZ co to jest CLOSURES (DOMKNIĘCIA)
+		// Domknięcia występują wtedy gdy funkcja może zapamiętać i uzyskać dostęp
+		// do swojego zakresu leksykalnego, nawet po jej wywołaniu na zewnątrz tego zakresu
+
+		// Kolejna definicja:
+		// Domknięcie to dostęp do zmiennej, która została stworzona wewnątrz zakresu innej funkcji,
+		// która zakończyła już swoje działania.
+
+		// PRZYKŁADY
+			function hello(name) {
+				return function(day) {
+					console.log(name+" "+day);
+				}
+			}
+
+			const user = hello("Jan");
+			console.log(user); // wyświetli nam funkcje
+			console.log(user("środa")); // wyświetli "Jan środa"
+			// Tutaj chodzi o to, że ta wartość "name" została zapamiętana,
+			// mimo tego, że funckja hello, zwróciła nam funkcje i się jej działanie zakonczylo, wiec nie powinno być dostępu do "name".
+			// Wywołujemy funkcję w zasiegu globalnym user("środa"), a mimo wszystko mamy dostęp do tego "name".
+			// Jednak dzięki CLOUSURES mamy dostęp do "name" w tej wewnętrznej zwracanej funkcji
+
+			// Gdzie to dokładnie siedzi?
+			// wpisz sobie console.dir(user); - tam zobaczysz Scopes, wewnątrz tego będzie Clousure, a tam będzie nasze name: "Jan".
+
+			// Kolejny przykład
+				const dodaj = function(a) {
+					let b = 10;
+					return function(c) {
+						return a + b + c;
+					}
+				}
+
+				const dodajWszystko = dodaj(10);
+				console.log(dodajWszystko); // to jest funkcją, więc zwróci funkcje
+				console.log(dodajWszystko(10)); // zwróci 30
+			// Następny
+				const dodaj2 = function(a) {
+					let b = 10;
+					return function(c) {
+						let d = 10;
+						return function(e) {
+							return a + b + c + d + e
+						}
+					}
+				}
+
+				const dodajWszystko2 = dodaj2(10);
+				console.log(dodajWszystko2); // zwróci funkcje
+				console.log(dodajWszystko2(10)(10)); // zwróci 50
+
+			// WAŻNY PRZYKŁAD
+				function licznik(start) {
+					let liczbaWywolan = start;
+
+					return function() {
+						return ++liczbaWywolan;
+					}
+				};
+
+				const count = licznik(0);
+				console.log(count); // zwróci funkcję
+				count(); // tu zwróci 1 i zapamięta to jeden
+				count(); // tu doda do 1, więc zwróci 2
+				console.log(count()); // // tu doda do 2, więc zwróci 3
+				// Powyższy rpzykłąd świadczy o tym, że mamy możliwośc modyfikowania naszego let liczbaWywolan
+				// Nie tylko mamy do niej dostęp ale możemy się z nią "komunikować"
+				// Mamy tu "dwu stronną" relację, możemy modyfikować nasz parametr
 
 //  TYPY PROSTE: string, numer, Boolean, null, undefined, symbol
 	// 	Przy przypisaniu jednej zmiennej do drugiej:
@@ -310,3 +482,203 @@ console.log(c); // "c - zakres globalny";
 	// 1. Przypisany jest tylko nowy adres (nadal mamy tylko jeden obiekt)
 	// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
 	// 3. Adres referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu
+
+
+// CALLBACKS (Samuraj programowania)
+	// Funkcja jako first-class objects (pełnoprawny obiekt)
+	// Czyli może być używana jako każdy inny obiekt
+
+	// Funkcje jako first-class objects - oznacza to, że funkcje są pełnoprawnymi obiektami i mogą być wykorzystywane jak inne obiekty.
+	// Funkcje mogą być np. przekazywane do innej funckji jako argument czy zwracane z nich dokłądnie tak jak inne wartości.
+	// Można użyć funkcji jako argumentu w innej funkcji i zwrócić funckje w funckji (za pomocą return)
+
+	// CALLBACK - funckja wywołania zwrotnego (callback function)
+	// To funkcja, którą przekazujemy jako argument, do funkcji, którą wywołujmey
+	// CALLBACK (callback function), to funckja, która jest wprowadzana jako argument do innej funkcji w celu wywołanie ich wewnątrz funkcji.
+
+	// FUNKCJA WYŻSZEGO RZĘDU(POZIOMU) -> HIGHER-ORDER(LEVEL) FUNCTION
+	// Jest to funkcja zawierajaca CALLBACK.
+	// Funkcje wyższego rzędu (Higher-order functions) to funkcje w których inne funkcje użyte są
+	// jako argumenty funkcji lub są zwracane z funkcji. Dużo funckji wyższego rzędu jest też wbudowanych w język JS.
+	// Funkcja showPopup jest w tym przykłądzie funkcą wyższego rzędu
+	function showPopup(name, alert) {
+		// alert to callbackk w tym przypadku
+		alert(name)
+	}
+
+	// Przykład 1a
+		function dodaj(x,y) {
+			return x + y;
+		};
+
+		function odejmij(x,y) {
+			return x - y;
+		};
+
+		function calc(a,b,callback) {
+			console.log(`wprowadzone zostały wartości: ${a} i ${b}`);
+			return callback(a,b);
+		}
+
+		const wynik = calc(10,20,dodaj);
+		console.log(wynik);
+
+	// Przykład 2a
+		function pokazWKonsoli(x) {
+			console.log(x);
+		}
+
+		function pokazALert(x) {
+			alert(x);
+		}
+
+		function pokazGdzies(x, callback) {
+			callback(x);
+		}
+
+		pokazGdzies("tekst", pokazWKonsoli); // Pamiętaj, ze tu bez wywołania funkcji "pokazWKonsoli" bo ona się wywoła w funkcji pokazGdzies.
+
+	// Przykłady wbudowanych funkcji w których wykorzystamy callback
+		// Przykład 1a
+		// setInterval - jako pierwszy parametr wlasnie rpzyjmuje callback
+
+		function show() {
+			console.log("cos");
+		};
+
+		setInterval(show, 1000);
+		// show - jest tutaj calbback function
+		// setInterval - jest tutaj funkcją wyższego rzędu
+
+		// Przykład 1b (addEventListener)
+		// document.addEventListener('click', callback);
+
+		// Oczywiście w powyższych przykłądach mozesz dać anonimową funkcję jako callback
+		// np:
+		setInterval(function () {
+			console.log("cos");
+		}, 1000);
+
+// CALLBACKS
+	const posts = [
+		{ title: 'Post One', body: 'This is post one' },
+		{ title: 'Post Two', body: 'This is post two' }
+	];
+
+	function getPosts() {
+		setTimeout(() => {
+			let output = '';
+			posts.forEach((post, index) => {
+				output += `<li>${post.title}</li>`;
+			});
+
+			document.body.innerHTML = output;
+		}, 1000)
+	};
+
+	function createPost(post, callback) {
+		setTimeout(() => {
+			posts.push(post);
+			callback();
+		}, 2000);
+	}
+
+	// TO poniżej wywołamy w callbacku, jako drugi parametr funckji createPost
+	// getPosts();
+
+	// Ponieważ stworzenie posta ma opóżnienie 2s, to nie zoabcyzmy go, bo getPosts czeka tylko 1s
+	// dlatego w funkcji createPost, tworzymy callback
+	createPost({ title: 'Post Three', body: 'Post three text'}, getPosts);
+
+//  PROMISES
+	const posts = [
+		{ title: 'Post One', body: 'This is post one' },
+		{ title: 'Post Two', body: 'This is post two' }
+	];
+
+	function getPosts() {
+		setTimeout(() => {
+			let output = '';
+			posts.forEach((post, index) => {
+				output += `<li>${post.title}</li>`;
+			});
+
+			document.body.innerHTML = output;
+		}, 1000)
+	};
+
+	function createPost(post) {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				posts.push(post);
+
+				const error = false;
+
+				if (!error) {
+					resolve();
+				} else {
+					reject('Error: Something went wrong');
+				}
+			}, 2000);
+		});
+	}
+
+	// createPost({ title: 'Post Three', body: 'Post three text'})
+	// 	.then(getPosts)
+	// 	.catch(err => console.log(err));
+
+	// Poniżej przykład kiedy jest kilka promisów:
+
+	// promise.all
+	const promise1 = Promise.resolve('Hello World');
+	const promise2 = 10;
+	const promise3 = new Promise((resolve, reject) =>
+			setTimeout(resolve, 2000, 'Goodbye')
+		);
+	// z fetchem jest troche inaczej, trzeba tutaj też dać "then", jak gdyby dwa razy wywołamy "then"
+	const promise4 = fetch('https://jsonplaceholder.typicode.com/users')
+		.then(res => res.json());
+
+	Promise.all([promise1, promise2, promise3, promise4])
+		.then(values => console.log(values));
+
+// ASYNC AWAIT
+	const posts = [
+		{ title: 'Post One', body: 'This is post one' },
+		{ title: 'Post Two', body: 'This is post two' }
+	];
+
+	function getPosts() {
+		setTimeout(() => {
+			let output = '';
+			posts.forEach((post, index) => {
+				output += `<li>${post.title}</li>`;
+			});
+
+			document.body.innerHTML = output;
+		}, 1000)
+	};
+
+	function createPost(post) {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				posts.push(post);
+
+				const error = false;
+
+				if (!error) {
+					resolve();
+				} else {
+					reject('Error: Something went wrong');
+				}
+			}, 2000);
+		});
+	}
+
+	async function init() {
+		await createPost({ title: 'Post Three', body: 'Post three text'});
+
+		getPosts();
+	}
+
+	init();
