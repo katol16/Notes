@@ -559,6 +559,7 @@ console.log(c); // "c - zakres globalny";
 			console.log("cos");
 		}, 1000);
 
+        // CALLBACK FUNCTON - A function you give to antoher function, to be run when the other function is finished.
 
 // TABLICE
 	// Obiekt wbduowany
