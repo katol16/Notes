@@ -48,7 +48,7 @@ console.log(c); // "c - zakres globalny";
 
 
 // HOISTING - przenoszenie DEKLARACJI zmiennej var i funkcji, na sam początek zakresu kodu.
-// Czyli, jeżeli jest w zakresie golbalnym (funckja lub var), to na początek zakresu globalnego,
+// Czyli, jeżeli jest w zakresie globalnym (funckja lub var), to na początek zakresu globalnego,
 // jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
 	console.log(zmienna);
 
@@ -85,12 +85,14 @@ console.log(c); // "c - zakres globalny";
 	// Czyli deklaracja zmeinnej przenoszona na góre scope'a
 
 	// console.log(istniejeTutaj); // RefferenceError
-	// funkcjaWewnetrzna(); // RefferenceError - bo function declaration są hoisted, a nie same wywołania
+	// funkcjaWewnetrzna(); // RefferenceError
+
+	// Ogarnij pokombinuj tu sobie jeszcze z funkcjami, utóœrz dokuemntu HOISTING, itd
 
 
 
 // HOISTING w let i const - NIE ZADZIAŁA! będzie w "TYMACZASOWEJ STREFIE ŚMIERCI"
-	// let i const
+	//  let i const
 	//	console.log(d); // wyrzuci błąd
 	//	let d = 22;
 
