@@ -249,6 +249,9 @@ console.log(c); // "c - zakres globalny";
 				// The inner function forms a closure: the inner function can use the arguments and variables of the outer function,
 				// while the outer function cannot use the arguments and variables of the inner function.
 
+	// FUNCTION CURRYING - Creating a copy of a function but with some preset parameters.
+	// Very useful in mathematical situations
+
 	// Muliply-nested functions
 		// Functions can be multiply-nested, i.e. a function (A) containing a function (B) containing a function (C). Both functions B and C form closures here,
 		// so B can access A and C can access B. In addition, since C can access B which can access A, C can also access A. Thus,
