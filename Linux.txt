@@ -1,0 +1,9 @@
+Linux
+
+	How can I give full permission to folder and subfolder
+		sudo chmod a+rwx /var/szDirectoryName
+
+	Getting Clear read only status on Webstorm 8/Phpstorm
+		sudo chown -R myusername my-project-folder
+
+		

@@ -1,0 +1,48 @@
+// HOISTING - przenoszenie DEKLARACJI zmiennej var i funkcji, na sam początek zakresu kodu.
+// Czyli, jeżeli jest w zakresie globalnym (funckja lub var), to na początek zakresu globalnego,
+// jeżeli zmienna jest w zakresie funkcji, to na początek zakresu funkcji
+	console.log(zmienna);
+
+	var zmienna = 1;
+
+	mojaFunkcja();
+
+	function mojaFunkcja() {
+		console.log("hello");
+
+		console.log(zmienna); // odczyta normlanie zmienna
+
+		// console.log(nieistniejeTaZMienna); // RefferenceError
+
+		console.log(istniejeTutaj); // zwróci undefined
+
+		var istniejeTutaj = 2;
+
+		funkcjaWewnetrzna(); // zadziała, czyliz wróci "wewnątrz"
+
+		function funkcjaWewnetrzna() {
+			console.log("Wewnątrz"); // zadziała
+		}
+	};
+
+	// generalnie do poniższego przykłądu z hoistingiem możemy podjeśc tak
+	// 	Przykład:
+	// 		console.log(d);
+	// 		var d = 22;
+	// 	Jak widzi to program:
+	// 		var d;
+	// 		console.log(d);
+	// 		d = 22;
+	// Czyli deklaracja zmeinnej przenoszona na góre scope'a
+
+	// console.log(istniejeTutaj); // RefferenceError
+	// funkcjaWewnetrzna(); // RefferenceError
+
+	// Ogarnij pokombinuj tu sobie jeszcze z funkcjami, utóœrz dokuemntu HOISTING, itd
+
+
+
+// HOISTING w let i const - NIE ZADZIAŁA! będzie w "TYMACZASOWEJ STREFIE ŚMIERCI"
+	//  let i const
+	//	console.log(d); // wyrzuci błąd
+	//	let d = 22;
