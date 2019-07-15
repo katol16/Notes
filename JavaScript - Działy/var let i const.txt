@@ -46,3 +46,8 @@
 		//  let i const
 		//	console.log(d); // wyrzuci błąd
 		//	let d = 22;
+
+W SKRÓCIE:
+	let i const zasięg w zakresie blokowym i nie działa hoisting (wyrzuca błąd)
+	const - nie można nadpisać, nie można ponownie dekalrować
+	let - można nadpisać, nie można ponownie dekalrować
