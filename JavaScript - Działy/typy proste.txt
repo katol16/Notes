@@ -1,8 +1,8 @@
 //  TYPY PROSTE: string, numer, Boolean, null, undefined, symbol
 	// 	Przy przypisaniu jednej zmiennej do drugiej:
-	// 	1. Tworzona jest nowa kopia wartości
-	// 	2. Nowa wartość ma przydzielone nowe (odrębne) miejsce w pamięci
-	// 	3. Nowa wartość nie ma żadnych związków ze starą wartością
+		// 	1. Tworzona jest nowa kopia wartości
+		// 	2. Nowa wartość ma przydzielone nowe (odrębne) miejsce w pamięci
+		// 	3. Nowa wartość nie ma żadnych związków ze starą wartością
 
 	let a1 = "jeden";
 	let b1 = a1;
@@ -12,6 +12,6 @@
 
 	//  TYP REFERENCYJNY: Obiekty przede wszystkim Objekt ogólny, funkcja, tablica
 	// Przy przypisaniu jednej zmiennej do drugiej:
-	// 1. Przypisany jest tylko nowy adres (nadal mamy tylko jeden obiekt)
-	// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
-	// 3. Adres referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu
+		// 1. Przypisany jest tylko nowy adres (nadal mamy tylko jeden obiekt)
+		// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
+		// 3. Adres, referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu

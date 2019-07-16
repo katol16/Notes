@@ -37,10 +37,10 @@
 	// Troche o proototypie
 		tablica instanceof Array; // zwróci true
 		tablica instanceof Object; // też zwróci true
-		tablica instanceof Function; // też zwróci false
+		tablica instanceof Function; // tu zwróci false
 
 	// Metody i właściwości tablic
-		// pop -> usuwa ostatni element tablicy i go zwraca. Ważne jest to, że go zwraca, bo np. mozemy potrzebowaćtego usuniętego elmentu
+		// pop -> usuwa ostatni element tablicy i go zwraca. Ważne jest to, że go zwraca, bo np. mozemy potrzebować tego usuniętego elmentu
 			const cars2 = ['opel', 'fiat'];
 			let ostatniSamochod = cars2.pop(); // w tej zmiennej będzie "fiat"
 			console.log(ostatniSamochod);
@@ -48,7 +48,7 @@
 		// push -> dodaje na koniec tablicy nowy element, ktory podalismy jako argument i ZWRACA nam nową długość naszej tablicy. Pamiętaj, że możesz dodać wiele elementów nie tylko jeden!
 		// unshift -> dodaje na początek tablicy nowy element, ktory podalismy jako argument i ZWRACA nam nową długość naszej tablicy. Pamiętaj, że możesz dodać wiele elementów nie tylko jeden!
 		// concat -> dodaje jedną tablicę do drugiej, może łaczyć kilka tablic ze sobą. Zwraca nową tablicę!
-		// join -> dostniemy stringa, ktróy bedzie zawierał elementy z naszej tablicy. Jako argument możmey podać separatoe np: (","). Zwróci nwoego stringa!
+		// join -> dostniemy stringa, ktróy bedzie zawierał elementy z naszej tablicy. Jako argument możmey podać separator np: (","). Zwróci nwoego stringa!
 
         // UWAGA!
             // Metody na tablicach możemy wywołać też w inny sposób, nie tylko za pomocą adnotacji kropkowej jak "arr.pop;"
