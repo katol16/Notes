@@ -1,3 +1,61 @@
+JSX
+	Why Using JSX in React?
+		React embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display.
+		React doesn’t require using JSX, but most people find it helpful as a visual aid when working with UI inside the JavaScript code. It also allows React to show more useful error and warning messages.
+
+	Embedding Expressions in JSX
+		You can put any valid JavaScript EXPRESSION inside the curly braces in JSX. For example, 2 + 2, user.firstName, or formatName(user) are all valid JavaScript expressions.
+			Przykład:
+				function formatName(user) {
+				  return user.firstName + ' ' + user.lastName;
+				}
+
+				const user = {
+				  firstName: 'Harper',
+				  lastName: 'Perez'
+				};
+
+				const element = (
+				  <h1>
+				    Hello, {formatName(user)}!
+				  </h1>
+				);
+
+				ReactDOM.render(
+				  element,
+				  document.getElementById('root')
+				);
+
+	JSX is an Expression Too
+		This means that you can use JSX inside of if statements and for loops, assign it to variables, accept it as arguments, and return it from functions:
+			Przykład:
+				function getGreeting(user) {
+				  if (user) {
+				    return <h1>Hello, {formatName(user)}!</h1>;
+				  }
+				  return <h1>Hello, Stranger.</h1>;
+				}
+
+	JSX Prevents Injection Attacks -> To jako dodatkowa informacja, którą warto wiedzieć jako ciekawostka (Na romozwach moze tego nie mów, bo mogą zapytać jak blokuje przed wstrzyknięciem)
+
+	Warning:
+		Since JSX is closer to JavaScript than to HTML, React DOM uses camelCase property naming convention instead of HTML attribute names.
+		For example, class becomes className in JSX, and tabindex becomes tabIndex.
+
+
+
+		DOCZYTUJ NASTĘPNY DZIAŁ PO JSX
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+			https://reactjs.org/docs/introducing-jsx.html
+
+
+
 React Hooks 
 	Nowa funkcja w React, która umożliwia wprowadzanie stanu do "functional component", wcześniej była tylko możliwość skorzystania ze stanu w class based components.
 	Wcześniej jak chcieliśmy używać componentDidMount, ComponentDidUpdate czy setState, musieliśmy właśnie tworzyć class based components
