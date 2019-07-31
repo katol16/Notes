@@ -74,3 +74,21 @@
 		}, 1000);
 
         // CALLBACK FUNCTON - A function you give to antoher function, to be run when the other function is finished.
+
+// W SKRÓCIE
+	// CALLBACK - funckja wywołania zwrotnego (callback function)
+	// To funkcja, którą przekazujemy jako argument, do funkcji, którą wywołujmey
+	// CALLBACK (callback function), to funkcja, która jest wprowadzana jako argument do innej funkcji w celu wywołania jej wewnątrz funkcji.
+
+	// FUNKCJA WYŻSZEGO RZĘDU(POZIOMU) -> HIGHER-ORDER(LEVEL) FUNCTION
+	// Jest to funkcja zawierajaca CALLBACK.
+	// Funkcje wyższego rzędu (Higher-order functions) to funkcje w których inne funkcje użyte są
+	// jako argumenty funkcji lub są zwracane z funkcji. Dużo funkcji wyższego rzędu jest też wbudowanych w język JS.
+
+		//Przykład:
+			// show to CALLBACK function a setInterval to wbudowana funkcja WYŻSZEGO RZĘDU
+		function show() {
+			console.log("cos");
+		};
+
+		setInterval(show, 1000);

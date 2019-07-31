@@ -16,6 +16,8 @@
 		// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
 		// 3. Adres, referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu
 
+		// Tu dodaj przykład!
+
 // W SKRÓCIE:
 	Typy proste-> string, numer, Boolean, null, undefined, symbol -> przypisanie przez dodanie nowego miejsca w pamięci
 	Typy referencyjne-> (wszystko poza typem prostym) Objekt, funkcja, tablica  -> przypisanie przez referencje
