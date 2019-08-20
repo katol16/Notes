@@ -92,15 +92,56 @@ Rendering Elements
 
 		In our experience, thinking about how the UI should look at any given moment rather than how to change t over time eliminates a whole class of bugs.
 
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
-		NASTĘPNY DZIAŁ; https://reactjs.org/docs/components-and-props.html
+	Components and Props
+		Components let You split rhe UI into independent, reausable pieces, and think about each piece in isolation. 
+
+		Function and Class Components
+			The simplest way to define a component is to write a JavaScript function:
+
+			function Welcome(props) {
+				return <h1>Hello, {props.name}</h1>;
+			}
+
+			This function is a valid React component because it accepts a single "props" (which stands for properties) object argument with data and returns a React element. We call such components "function components"  beacuse they are literally JavaScript functions.
+
+			You can also use an ES6 to define a component:
+			class Welcome extends React.Component {
+				render() {
+					return <h1>Hello, {thos.props.name}</h1>;
+				}
+			}
 						
+			The above two components are equivalent from React's point of view.
+
+			Classes have some additional features that we will discuss in the next sections. Untill then, we will use function components for their conciseness
+
+		Rendering a Component
+			Previosly, we only encountered React elements that represent DOM tags:
+				const element = <div />;
+			However, elements can also represent user-defined components"
+				const element = <Welcome name="Sara" />;
+
+			Example
+				function Welcome(props) {
+					return <h1>Hello, {props.name}</h1>;
+				}
+
+				const element = <Welcome name="Sara" />;
+				ReactDOM.render(element, document.getElementById('root'));
+
+			Let's recap what happens in this example:
+				1. We call ReactDOM.render() with the <Welocme name="Sara" /> element
+				2. React calls the Welocme component with {name: 'Sara'} as the props.
+				3. Our Welcome component returns a <h1>Hello, Sara</h1> element as the result.
+				4. React DOM efficiently updates the DOM to match <h1>Hello, Sara</h1>.
+
+			Note:
+				Always start component names with a capital letter. React treats components starting with a lowercase letters as DOM tags. For example, <div/> represents an HTML div tag, but <Welcome /> represents a component and requires Welcome to be in scope.
+
+		Composing Components
+			Typically, new React apps have a single App component at the very top. However, if you integrate React into an existing app, you might start bottom-up with a small component like Button and gradually work your way to the top ot the view hierarchy.
+
+		Extracting Components ( TU SKOŃCZYŁEŚ )( TU SKOŃCZYŁEŚ )( TU SKOŃCZYŁEŚ )( TU SKOŃCZYŁEŚ )( TU SKOŃCZYŁEŚ )( TU SKOŃCZYŁEŚ )( TU SKOŃCZYŁEŚ )
 
 
 React Hooks 
