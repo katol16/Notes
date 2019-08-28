@@ -11,7 +11,7 @@
 
 // FUNCTION STATEMENTS(DECLARATION) AND FUNCTION EXPRESSIONS
 
-	// Pamiętaj, że moze być zwykłe EXPRESSION, alb zwykły STATMENT
+	// Pamiętaj, że moze być zwykłe EXPRESSION, albo zwykły STATMENT
 	// oraz FUNCTION STATEMENTS(DECLARATION) AND FUNCTION EXPRESSIONS
 
 	// Expression: A unit of a code that results in a Value
@@ -149,3 +149,9 @@
 		// The name conflict happens at the statement return x and is between inside's parameter x and outside's variable x.
 		// The scope chain here is {inside, outside, global object}.
 		// Therefore inside's x takes precedences over outside's x, and 20 (inside's x) is returned instead of 10 (outside's x).
+
+
+// FUNKCJE - SAMURAJ PROGRAMOWANIA
+	Czym są funkcje?
+		Funkcje są obiektami.
+		Od innych obiektów wyróżnia je właściwość [[Call]]
