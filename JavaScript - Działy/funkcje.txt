@@ -153,5 +153,66 @@
 
 // FUNKCJE - SAMURAJ PROGRAMOWANIA
 	Czym są funkcje?
-		Funkcje są obiektami.
-		Od innych obiektów wyróżnia je właściwość [[Call]]
+		-Funkcje są obiektami.
+		-Od innych obiektów wyróżnia je właściwość [[Call]]
+		-Funckje są "mini programami" z których można zbudować duży program
+		- Funkcje przypominają tajemnicze pudełko. Do któ©ego coś wpada i zmktórego coś wychodzi (Dane, return, mogą być efekty uboczne(nie muszą być negatywne))
+
+	Wywołąnie funkcji
+		function addFive(a) {
+			let result = 5 + a;
+			console.log(result);
+			return result;
+		}
+		let numbet = addFive(10); -> do let numbet zostanie przypisane to co zwróci funkcja
+
+	Jak zbudowana jest funkcja
+		1) Identyfikator *nazwa
+			Przykłady:
+				function makeMeHappy() {}
+				const giveMeMoney = function() {} (anonimowa)
+
+		2) Parametry 
+			function a(parametr1) {};
+			const b = function(param1, param2) {};
+
+		3) Ciało funckji
+			function a() {
+				// coś robimy
+				return wyrażenie // coś zwracamy;
+			}
+
+		RETURN
+
+			-Po return umieszczamy wyrażnei, które zwracamy, Jelsi po return ne będzie wyrażenia zwracamy undefined, jeśłi brak return to zwraca undefined.
+			-Return kończy też funkcję i wraca do meijsca w którym zostałą wywołana
+			-FUnckja czasami hest po to by coś zrobić, ale najczęściej po to by coś zrobić i zwrócić wrtość
+
+		FUNCKJA MOŻE WYGLĄDAĆ TAK:
+
+			1) Dekalrujemy zmienną i przypisujemy do niej funckję anonimową
+				
+				const add = function(value1, value2) {
+					return value1 + value2;
+				}
+
+			2) 
+				function add(value1, value2) {
+					return value1 + value2;
+				}
+
+			3)  Za pomocą konstruktora (Najgrosza metoda)
+
+				const add = new Function ('value1', 'value2', 'return calue1 + value2;');
+
+			4) Arrow function
+				const add = (value1, value2) => {
+					return value1 + value2;
+				}
+
+		FUNKCJE MOŻNA WYWOŁAĆ
+			-wieloktortnie
+			-bo tylko funckje mają właściwość [[call]]
+			-za pomocą oepratora wywołania () np. name()
+
+		Funckaj zawsze coś zwraca (nawet jak nie ma return w ciele)
