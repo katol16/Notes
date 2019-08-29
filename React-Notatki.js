@@ -1,3 +1,6 @@
+// DOKUMENTACJA
+
+
 // JSX
 // 	Why Using JSX in React?
 // 		React embraces the fact that rendering logic is inherently coupled with other UI logic: how events are handled, how the state changes over time, and how the data is prepared for display.
@@ -111,32 +114,32 @@
 				}
 			}
 						
-		// 	The above two components are equivalent from React's point of view.
+		// The above two components are equivalent from Reacts point of view.
 
 		// 	Classes have some additional features that we will discuss in the next sections. Untill then, we will use function components for their conciseness
 
 		// Rendering a Component
-		// 	Previosly, we only encountered React elements that represent DOM tags:
-				const element = <div />;
-			// However, elements can also represent user-defined components"
-				const element = <Welcome name="Sara" />;
+			// 	Previosly, we only encountered React elements that represent DOM tags:
+					const element = <div />;
+				// However, elements can also represent user-defined components"
+					const element = <Welcome name="Sara" />;
 
-			// Example
-				function Welcome(props) {
-					return <h1>Hello, {props.name}</h1>;
-				}
+				// Example
+					function Welcome(props) {
+						return <h1>Hello, {props.name}</h1>;
+					}
 
-				const element = <Welcome name="Sara" />;
-				ReactDOM.render(element, document.getElementById('root'));
+					const element = <Welcome name="Sara" />;
+					ReactDOM.render(element, document.getElementById('root'));
 
-		// 	Let's recap what happens in this example:
-		// 		1. We call ReactDOM.render() with the <Welocme name="Sara" /> element
-		// 		2. React calls the Welocme component with {name: 'Sara'} as the props.
-		// 		3. Our Welcome component returns a <h1>Hello, Sara</h1> element as the result.
-		// 		4. React DOM efficiently updates the DOM to match <h1>Hello, Sara</h1>.
+			// 	Let's recap what happens in this example:
+			// 		1. We call ReactDOM.render() with the <Welocme name="Sara" /> element
+			// 		2. React calls the Welocme component with {name: 'Sara'} as the props.
+			// 		3. Our Welcome component returns a <h1>Hello, Sara</h1> element as the result.
+			// 		4. React DOM efficiently updates the DOM to match <h1>Hello, Sara</h1>.
 
-		// 	Note:
-		// 		Always start component names with a capital letter. React treats components starting with a lowercase letters as DOM tags. For example, <div/> represents an HTML div tag, but <Welcome /> represents a component and requires Welcome to be in scope.
+			// 	Note:
+			// 		Always start component names with a capital letter. React treats components starting with a lowercase letters as DOM tags. For example, <div/> represents an HTML div tag, but <Welcome /> represents a component and requires Welcome to be in scope.
 
 		// Composing Components
 		// 	Typically, new React apps have a single App component at the very top. However, if you integrate React into an existing app, you might start bottom-up with a small component like Button and gradually work your way to the top ot the view hierarchy.
@@ -167,22 +170,302 @@
 				}
 
 
+			// Zmiana tego komponentu czy ponowne użycie jego poszczególnych części może okazać się skomplikowane z powodu całego tego zagnieżdżenia. Rozbijmy go zatem na kilka mniejszych komponentów. 
+			// Najpierw wydzielimy komponent Avatar:
+				function Avatar(props) {
+					return (
+						<img className="Avatar"
+							src={props.user.avatarUrl}
+							 alt={props.user.name}
+						 />
+					)
+				}
+			// Zauważ, że Avatar nie musi weidzież, że jest renderowany wewnątrz komponponentu COmment. Dlatego też daliśmy jego właściwości bardziej ogólną nazwę user zamiast author.
 
-React Hooks 
-	Nowa funkcja w React, która umożliwia wprowadzanie stanu do "functional component", wcześniej była tylko możliwość skorzystania ze stanu w class based components.
-	Wcześniej jak chcieliśmy używać componentDidMount, ComponentDidUpdate czy setState, musieliśmy właśnie tworzyć class based components
+// Zauważ jednak ,że teraz upraszczając nasz component Comment, będziemi mieli
+// <Avatar user={props.author} -> czyli tutaj musimy nazwać nasz obiekt "user" -> user={props.author}
+	function Comment(props) {
+		return (
+			<div className="Comment">
+				<div className="UserInfo">
+					<Avatar user={props.author} />
+					<div className="UserInfo-name">
+						{props.author.name}
+					</div>
+				</div>
+				<div className="Comment-text">
+					{props.text}
+				</div>
+				<div className="Comment-date">
+					{formatDate(props.date)}
+				</div>
+			</div>
+		);
+	}
 
-Redux
-	Menadżer stanu aplikacji. Pożyteczny przy bardziej rozbudowanych aplikacjach
+// Następnie wydzielimy komponent userInfo, który wyrenderuje Avatar obok nazwy uzytkownika:
+	function UserInfo(props) {
+		return (
+			<div className="UserInfo">
+				<Avatar user={props.user} />
+				<div className="UserInfo-name">
+					{props.user.name}
+				</div>
+			</div>
+		)
+	}
+// To pozwoli uprościć Comment jeszcze barziej:
+	function Comment(props) {
+		return (
+			<div className="Comment">
+				<UserInfo user={props.author} />
+				<div className="Comment-text">
+					{props.text}
+				</div>
+				<div className="Comment-date">
+					{formatDate(props.date)}
+				</div>
+			</div>
+		);
+	}
 
-	Mamy jeden zbiorczy store, który kontroluje informacje o naszej aplikacji.
+// Właściwości są tylko do odczytu
 
-	To jak kompletny store w danym momencie wygląda, to jest stan naszej aplikacji
+// Bez względu na to, czy zadeklarujesz komponent jako funkcję czy klasę, nie może on nigdy modyfikować swoich właściwości. Rozważ następującą funkcję sum:
 
-	Stan w redux jest tylko do odczytu, dlatego za każdym razem jak coś się zmienia w state, to my tworzymy nową wersję statu, a nie tworzymy nowego
+	function sum(a, b) {
+		return a + b;
+	}
 
-	Zmiany, które zachodzą w naszym State, przechodzą przez Reducer. Reducer, to czysta funkcja, ktora nie zmienia już istniejących danych (masz o tym w kursie udemy)
-		UWAGA! Reducer za każdym razem zwraca nam nowy stan, więc nie możemy "pogubić" reszty obiektu. Poniżej przykład
+// Funkcje tego typu nazywane są “czystymi” (ang. pure function), dlatego że nie próbują one zmieniać swoich argumentów i zawsze zwracają ten sam wynik dla tych samych argumentów.
+
+	// W przeciwieństwie do poprzedniej funkcji, ta poniżej nie jest “czysta”, ponieważ zmienia swój argument.
+
+	function withdraw(account, amount) {
+		account.total -= amount;
+	}
+
+// React jest bardzo elastyczny, ale ma jedną ścisłą zasadę:
+//
+// 	Wszytkie komponenty muszą zachowywać się jak czyste funkcje w odniesieniu do ich właściwości.
+//
+// 	Rzecz jasna, interfejsy użytkownika w aplikacjach są zwykle dynamiczne, zmieniają się w czasie. W kolejnym rozdziale wprowadzimy nowe pojęcie “stanu”. Stan pozwala komponentom reactowym na zmianę swojego wyniku w czasie, w odpowiedzi na akcje użytkownika, żądania sieciowe itp. bez naruszania powyższej zasady.
+
+// STAN I CYKL ŻYCIA
+	// Stan przypomina trochę atrybuty (ang props), jednak jest prywatny i w pełni kontrolowany przez dany komponent
+
+// Przekształcanie funkcji w klasę
+	// Proces przekształcania komponentu funkcyjnego wklasę można opisać w pięciu korkach:
+		// 1. Stwórz klasę zgodną ze standardem ES6 ot ej samej nazwie i odziedzicz po klasie React.Component przy pomocy słowa kluczowego extend.
+		// 2. Dodaj pustą metodę o nazwie render().
+		// 3. Przenieś ciało funkcji do ciał metody render().
+		// 4. W render() zamień wszystkie props na this.props.
+		// 5. Usuń starą deklarację funckji.
+
+		// Function Component:
+			function tick() {
+				const element = (
+					<div>
+						<h1>Hello, world!</h1>
+						<h2>It is {new Date().toLocaleTimeString()}.</h2>
+					</div>
+				);
+				ReactDOM.render(
+					element,
+					document.getElementById('root')
+				);
+			}
+
+			setInterval(tick, 1000);
+
+		// Class based component:
+			class Clock extends React.Component {
+				render() {
+					return (
+						<div>
+							<h1>Hello, world!</h1>
+							<h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+						</div>
+					);
+				}
+			}
+
+			function tick() {
+				ReactDOM.render(
+					<Clock date={new Date()} />,
+					document.getElementById('root')
+				);
+			}
+
+			setInterval(tick, 1000);
+
+	// Dodawanie lokalnego stanu do klasy
+		// Prznieśmy teraz date z powyższego Class Based component z atrybutów do stanu w trzech krokach:
+
+		// 1. Zamień wystąpienia this.props.date na this.state.date w ciele metody render():
+			class Clock extends React.Component {
+				render() {
+					return (
+						<div>
+							<h1>Witaj, świecie!</h1>
+							<h2>Aktualny czas: {this.state.date.toLocaleTimeString()}.</h2>
+						</div>
+					);
+				}
+			}
+
+		// 2. Dodaj konstruktor klasy i zainicjuj w nim pole this.state
+			class Clock extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {date: new Date()};
+				}
+
+				render() {
+					return (
+						<div>
+							<h1>Witaj, świecie!</h1>
+							<h2>Aktualny czas: {this.state.date.toLocaleTimeString()}.</h2>
+						</div>
+					);
+				}
+			}
+			// Zwróć uwagę na arguemnty props przekazywany do kosntruktora bazowego za pomocą specjalnej funkcji super()
+			// Komponenty klasowe zawsze powinny przekazywać props do konstruktora bazowego
+
+		// 3. Usuń atrybut date zelementu <Clock />
+
+		// W rezultacie powinniśmy otrzynać następujący kod:
+			class Clock extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {date: new Date()};
+				}
+
+				render() {
+					return (
+						<div>
+							<h1>Witaj, świecie!</h1>
+							<h2>Aktualny czas: {this.state.date.toLocaleTimeString()}.</h2>
+						</div>
+					);
+				}
+			}
+
+			ReactDOM.render(
+				<Clock />,
+				document.getElementById('root')
+			);
+
+	// Dodawanie metod cyklu życia do klasy
+		// W aplikacji o wielu komponentach istotne jest zwalnianie zasobów przy niszczeniu każdego z komponentów.
+
+		//Chcielibyśmy uruchamiać timer przy każdym pierwszym wyrenderowaniu komponentu Clock do drzewa DOM. W Reakcie taki moment w cyklu życia komponentu nazywamy “montowaniem” (ang. mounting).
+		//
+		// Chcemy również resetować timer za każdym razem, gdy DOM wygenerowany przez Clock jest usuwany z dokumentu. W Reakcie taki moment nazywamy to “odmontowaniem” (ang. unmounting) komponentu.
+
+		// Takie metody nazywamy "metodami cyklu życia"
+
+		// Metoda componentDidMount() uruchamiana jest po wyrenderowaniu komponentu do drzewa DOM. To dobre meisjce na inicjalizacje timera:
+
+			componentDidMount() {
+				this.timerID = setInteval(
+					() => this.tick(), 1000
+				);
+			}
+
+		// Zwróć uwagę, ze identyfiaktor timera zapisujemy bezpośrednio do this (this,timerID).
+
+		// Mimo że this.props jest ustawione przez Reacta, a this,state jest specjalnym polem, to nic nie stoi na przeszkodzie, aby stworzyć dodatkowe pola, w którymch chcielibyśµy przechowywać wartości niezwiązane bezpośrednio z przepływem danych (jak nasz indetyfikator timera).
+
+		// Zatrzymaien timera zajmie się metoda cyklu życia zwana componentWillUnmount
+
+			componentWillUmount() {
+				clearInterval(this.timerID);
+			}
+
+		// Na koniec zaimplementujemy metodę o nazwie tick(), którą komponent Clock będzie wywoływał co sekundę.
+		// Użyjemy w niej this.setState(), aby zaplanować aktualizację lokalnego stanu komponentu:
+
+			class Clock extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {date: new Date()};
+				}
+
+				componentDidMount() {
+					this.timerID = setInterval(
+						() => this.tick(),
+						1000
+					);
+				}
+
+				componentWillUnmount() {
+					clearInterval(this.timerID);
+				}
+
+				tick() {
+					this.setState({
+						date: new Date()
+					});
+				}
+
+				render() {
+					return (
+						<div>
+							<h1>Witaj, świecie!</h1>
+							<h2>Aktualny czas: {this.state.date.toLocaleTimeString()}.</h2>
+						</div>
+					);
+				}
+			}
+
+			ReactDOM.render(
+				<Clock />,
+				document.getElementById('root')
+			);
+
+		// Podsumowanie:
+			// 	1. Kiedy element <Clock /> przekazywany jest do funkcji ReactDOM.render(), React wywołuje konstruktor komponentu Clock. Jako że Clock będzie wyświetlać aktualny czas, musi on zainicjalizować this.state obiektem zawierającym aktualną datę. Później ten stan będzie aktualizowany.
+			//
+			// 		2. Następnie React wywołuje metodę render() komponentu Clock. W ten sposób uzyskuje informację, co powinno zostać wyświetlone na stronie. Gdy otrzyma odpowiedź, odpowiednio aktualizuje drzewo DOM.
+			//
+			// 		3. Po wyrenderowaniu komponentu Clock do drzewa DOM, React wywołuje metodę cyklu życia o nazwie componentDidMount(). W jej ciele komponent Clock prosi przeglądarkę o zainicjalizowanie nowego timera, który będzie wywoływać metodę tick() co sekundę.
+			//
+			// 		4. Co sekundę przeglądarka wywołuje metodę tick(). W jej ciele komponent Clock żąda aktualizacji UI poprzez wywołanie metody setState(), przekazując jako argument obiekt z aktualnym czasem. Dzięki wywołaniu setState() React wie, że zmienił się stan i że może ponownie wywołać metodę render(), by dowiedzieć się, co powinno zostać wyświetlone na ekranie. Tym razem wartość zmiennej this.state.date w ciele metody render() będzie inna, odpowiadająca nowemu czasowi - co React odzwierciedli w drzewie DOM.
+			//
+			// 		5. Jeśli kiedykolwiek komponent Clock zostanie usunięty z drzewa DOM, React wywoła na nim metodę cyklu życia o nazwie componentWillUnmount(), zatrzymując tym samym timer.
+
+
+// Poprawne używanie stanu - Tu skońćzyłeś!
+
+
+
+
+
+
+
+
+
+
+
+// Z JAKIEGOŚ KURSU (Chyba YouTubera z Polski)
+
+// React Hooks 
+// 	Nowa funkcja w React, która umożliwia wprowadzanie stanu do "functional component", wcześniej była tylko możliwość skorzystania ze stanu w class based components.
+// 	Wcześniej jak chcieliśmy używać componentDidMount, ComponentDidUpdate czy setState, musieliśmy właśnie tworzyć class based components
+
+// Redux
+// 	Menadżer stanu aplikacji. Pożyteczny przy bardziej rozbudowanych aplikacjach
+
+// 	Mamy jeden zbiorczy store, który kontroluje informacje o naszej aplikacji.
+
+// 	To jak kompletny store w danym momencie wygląda, to jest stan naszej aplikacji
+
+// 	Stan w redux jest tylko do odczytu, dlatego za każdym razem jak coś się zmienia w state, to my tworzymy nową wersję statu, a nie tworzymy nowego
+
+// 	Zmiany, które zachodzą w naszym State, przechodzą przez Reducer. Reducer, to czysta funkcja, ktora nie zmienia już istniejących danych (masz o tym w kursie udemy)
+// 		UWAGA! Reducer za każdym razem zwraca nam nowy stan, więc nie możemy "pogubić" reszty obiektu. Poniżej przykład
 
 		import { createStore } from 'redux';
 
