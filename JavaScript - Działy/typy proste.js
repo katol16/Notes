@@ -16,8 +16,14 @@
 		// 2. Obiekt istnieje póki ma choć jedno wiązanie. (brak - wyrzuca z pamięci - odśmiecanie czyli dereferencja)
 		// 3. Adres, referencja, wskaźnik - nazwy zamiennie dla opisania relacji zmiennej i obiektu
 
-		// Tu dodaj przykład!
+		let x1 = {name: 'Karol'}
+		console.log(x1); // {name: 'Karol'}
+		let x2 = x1;
+		console.log(x2); // {name: 'Karol'}
+		x1.name = 'Michał'
+		console.log(x1); // {name: Michał'}
+		console.log(x2); // {name: Michał'}
 
 // W SKRÓCIE:
-	Typy proste-> string, numer, Boolean, null, undefined, symbol -> przypisanie przez dodanie nowego miejsca w pamięci
-	Typy referencyjne-> (wszystko poza typem prostym) Objekt, funkcja, tablica  -> przypisanie przez referencje
+// 	Typy proste-> string, numer, Boolean, null, undefined, symbol -> przypisanie przez dodanie nowego miejsca w pamięci
+// 	Typy referencyjne-> (wszystko poza typem prostym) Objekt, funkcja, tablica  -> przypisanie przez referencje

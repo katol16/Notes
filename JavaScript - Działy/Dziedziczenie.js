@@ -1,5 +1,43 @@
+// https://www.nafrontendzie.pl/ecmascript-6-co-nowego -> Dobry materiał na ten temat
+// Dziedziczenie przed ECMAScript2015 (ES6)
+    function Base (name){
+      this.name = name;
+    }
+
+    Base.prototype.getName = function (){
+      return this.name + ' blada';
+    }
+
+    var test = new Base('dupa');
+
+    document.getElementById('result').innerHTML = test.getName();
+
+// Dziedziczenie w ES6
+    // Pamiętaj, że tutaj to działa w sumie pod spodem taks amo jak wczesniej (przed ES6), tylko zapis jest inny bardziej podobny do inncyh języków programowania.
+    // Jest to tzw. syntactic sugar
+    class Car {
+        constructor(name) { // konstruktor
+            this.name = name
+        }
+    }
+
+    class FamilyCar extends Car { // dziedziczenie
+        constructor(name, maxSpeed) {
+            super(name); // wywołanie bazowego konstruktora
+            this.maxSpeed = maxSpeed;
+        }
+    }
+
+    var familyCar = new FamilyCar('Volvo', 120);
+
+    console.log(familyCar.name);
+    console.log(familyCar.maxSpeed);
+
+
+// DOKUMENTCJA
+
 Dziedziczenie i łańcuch prototypów
-	Jeżeli chodzi o dziedziczenie, JavaScript posiada tylko jedną konstrukcję: Obiekty. Każdy obiekt posiada pryeatną własność łaćzącą go z innym obiektem zwanym prototypem. Obiekt prototype posiada swój własny protototyp, i tak dalej aż osiągnie null jako swój protoyp. Null nie ma prototypu i działa jak zakońćzenie łancucha prototypów. 
+    Jeżeli chodzi o dziedziczenie, JavaScript posiada tylko jedną konstrukcję: Obiekty. Każdy obiekt posiada prywatną własność łaćzącą go z innym obiektem zwanym prototypem. Obiekt prototype posiada swój własny protototyp, i tak dalej aż osiągnie null jako swój protoyp. Null nie ma prototypu i działa jak zakońćzenie łancucha prototypów.
 
 	Dziedziczenie z łańcucha prototypów
 		Dziedziczenie właściwości
@@ -35,7 +73,7 @@ Dziedziczenie i łańcuch prototypów
 				// o.[[Prototype]].[[Prototype]] to null, koniec wyszukiwania.
 				// Nie znaleziono właściwości, zwróć undefined.
 
-		Dziedziczenie "metody" -> DOCZYTAJ i zró” notatki
+		Dziedziczenie "metody" -> DOCZYTAJ i zrób notatki
 
 	Różne sposoby tworzenia obiektów i powiązae z nimi łąnuchy prototypów.
 		Obiekty stworzone za pomocą podstawowej składni:

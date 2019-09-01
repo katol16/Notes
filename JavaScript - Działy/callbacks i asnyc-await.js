@@ -121,3 +121,6 @@
 	}
 
 	init();
+
+
+// JESZCZE RAZ ZRÓB TEN MATERIAŁ!!!

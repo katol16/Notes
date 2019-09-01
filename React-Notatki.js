@@ -1,5 +1,5 @@
 // DOKUMENTACJA
-
+// PODSTAWOWE INFORMACJE
 
 // JSX
 // 	Why Using JSX in React?
@@ -427,26 +427,695 @@
 
 		// Podsumowanie:
 			// 	1. Kiedy element <Clock /> przekazywany jest do funkcji ReactDOM.render(), React wywołuje konstruktor komponentu Clock. Jako że Clock będzie wyświetlać aktualny czas, musi on zainicjalizować this.state obiektem zawierającym aktualną datę. Później ten stan będzie aktualizowany.
-			//
-			// 		2. Następnie React wywołuje metodę render() komponentu Clock. W ten sposób uzyskuje informację, co powinno zostać wyświetlone na stronie. Gdy otrzyma odpowiedź, odpowiednio aktualizuje drzewo DOM.
-			//
-			// 		3. Po wyrenderowaniu komponentu Clock do drzewa DOM, React wywołuje metodę cyklu życia o nazwie componentDidMount(). W jej ciele komponent Clock prosi przeglądarkę o zainicjalizowanie nowego timera, który będzie wywoływać metodę tick() co sekundę.
-			//
-			// 		4. Co sekundę przeglądarka wywołuje metodę tick(). W jej ciele komponent Clock żąda aktualizacji UI poprzez wywołanie metody setState(), przekazując jako argument obiekt z aktualnym czasem. Dzięki wywołaniu setState() React wie, że zmienił się stan i że może ponownie wywołać metodę render(), by dowiedzieć się, co powinno zostać wyświetlone na ekranie. Tym razem wartość zmiennej this.state.date w ciele metody render() będzie inna, odpowiadająca nowemu czasowi - co React odzwierciedli w drzewie DOM.
-			//
-			// 		5. Jeśli kiedykolwiek komponent Clock zostanie usunięty z drzewa DOM, React wywoła na nim metodę cyklu życia o nazwie componentWillUnmount(), zatrzymując tym samym timer.
+			// 	2. Następnie React wywołuje metodę render() komponentu Clock. W ten sposób uzyskuje informację, co powinno zostać wyświetlone na stronie. Gdy otrzyma odpowiedź, odpowiednio aktualizuje drzewo DOM.
+			// 	3. Po wyrenderowaniu komponentu Clock do drzewa DOM, React wywołuje metodę cyklu życia o nazwie componentDidMount(). W jej ciele komponent Clock prosi przeglądarkę o zainicjalizowanie nowego timera, który będzie wywoływać metodę tick() co sekundę.
+			// 	4. Co sekundę przeglądarka wywołuje metodę tick(). W jej ciele komponent Clock żąda aktualizacji UI poprzez wywołanie metody setState(), przekazując jako argument obiekt z aktualnym czasem. Dzięki wywołaniu setState() React wie, że zmienił się stan i że może ponownie wywołać metodę render(), by dowiedzieć się, co powinno zostać wyświetlone na ekranie. Tym razem wartość zmiennej this.state.date w ciele metody render() będzie inna, odpowiadająca nowemu czasowi - co React odzwierciedli w drzewie DOM.
+			// 	5. Jeśli kiedykolwiek komponent Clock zostanie usunięty z drzewa DOM, React wywoła na nim metodę cyklu życia o nazwie componentWillUnmount(), zatrzymując tym samym timer.
 
 
-// Poprawne używanie stanu - Tu skońćzyłeś!
+// Poprawne używanie stanu
+	// 1. Nie modyfikuj stanu bezpośrednio
+		// Przykład:
+			// Poniższy kod nie spowoduje ponownego wyrenderowania komponentu
+				// Źle
+				this.state.comment = 'Witam';
+
+			// Zamaist tego używaj setState()
+				// Dobrze
+				this.setState({comment: 'Witam'});
+
+			// Jedynym miejscem, w którym wolno Ci użyć this.stae jest konstruktor klasy.
+
+// Aktualizacje stanu mogą dziac się asynchronicznie
+	// React może zgrupować kilka wywołań metody setState() w jedną pazckę w celu zwiększenia wydajności aplikaji.
+	// Z racji tego, że zmienne this.props i this.state mogą być aktualizowane asynchronicznie, nie powinno się polegać na ich wartościach przy obliczaniu nowego stanu.
+		// Źle:
+		this.setState({
+			counter: this.state.counter + this.props.increment,
+		});
+
+	// Aby temu zaradzić, wystarczy użyć alternatywnej wersji metody setState(), która jako argument przyjmuje funkcję zamiast obiektu.
+	// Funkcja ta otrzyma dwa argumenty: aktualny stan oraz aktualne atrybuty komponenty.
+		// Dobrze
+		this.setState((state, props) => ({
+			counter: state.counter + props.increment
+		}));
+
+	// W powyższym kodzie użyliśmy funckji strzałkowej, lecz równie dobrze moglibyśmy użyć zwykłej funkcji:
+		// Dobrze
+		this.setState(function(state, props) {
+			return {
+				counter: state.counter + props.increment
+			};
+		});
+
+// Aktualizowany stan jest scalany
+	// Gdy wywołujesz setState(), React scala (ang. merge) przekazany obiekt z aktualnym stanem komponentu
+	// Na przykłąd gdyby komponnent przechowywał w stanie kilka niezależnych zmiennych:
+		constructor(props) {
+			super(props);
+			this.state = {
+				post: [],
+				comments: []
+			};
+		}
+	// Można byłoby je zaktualizować niezależnie za pomocą osobnych wywołań metody setState();
+	componentDidMount() {
+		fetchPosts().then(response => {
+			this.setState({
+				postsL response.posts
+			})
+		})
+
+		fetchComments().then(response => {
+			this.setState({
+				comments: response.comments
+			})
+		})
+	})
+
+	// Scalanie jest płytkie (ang. shallow), tzn. this.setState({comments}) nie zmieni this.state.posts, lecz całkowicie nadpisze wartość this.state.coments.
+
+// Dane płyną z góry na dół
+	// Ani komponenty-rodzice, ani ich dzieci nie wiedzą, czy jakiś komponent posiada stan, czy też nie. Nie powinny się również przejmować tym, czy jest on funkcyjny, czy klasowy.
+	// Właśnie z tego powodu stan jest nazywany loklanym lub enkaspulowanym. Nie mają do niego dostępu żadne komponenty pzoa tym, który do posiada i modyfikuje.
+	// Komponent moze zdecydować się na przekazanie swojego stanu w dó strukturypoprzez atrybuty jego komponentów potomnych:
+		// <h2>Aktualny czs: {thos.state.date.toLocaleString()}.</h2>
+	// To samo tyczy się komponentów własnych:
+		<FormattedDate date={this.state.date} />
+	// Komponent <FormattedDate /> otrzyma "date" jako atrybuty i nie będzie w stanie rzróżnić, czy pochodzi on ze stanu lub z jednego atrybutów komponentu CLock, czy też został przekaany bezpośrednio przez wartość:
+		function FormattedDate(props) {
+			return <h2>Aktualny czas: {props.date.toLocaleTimeString()}.</h2>;
+		}
+	// Taki przepływ danych nazywany jest powszechniejednokierunkowym (ang. undirectional) lub "z góry na dół" (ang. top-down). Stan jest zawsze własnością konkretnego komponentu i wszelkie dane lub części UI, pwostałe w oparciu o niego, mogą wpłynąć jedynie na komponenty znajdujące się "ponizej" w drzewie.
+
+	// Wyobraź sobie, ze drzewo komponentóœ to wodospac atrybutóœ, a stan każdego to dodatkowe źródło wody, któ©e go zasila, jednocześnie spadająć w dół zwraz z resztą wody.
+
+// Obsługa zdrzeń
+	// Obsługa zdarzeń w Reakcie jest bardzo podobna do tej z drzewa DOM. Istnieje jednak kilka różnic w składni:
+		// - Zdarzenia reactowe pisane są camelCasem, a nei małymi ltierami
+		// - W JSX procedura obsługi zdarzenia przekazywana jest jako funckja, a nie łąńcuch znaków.
+
+	// Na przykład, poniższy kod HTMl:
+		<button onclick="activeLasers()">
+			Aktywuj lasery
+		</button>
+
+	// W Reakcie wygląða nieco inaczej:
+		<button onClick={activeLasers}>
+			Atkywuj lasery
+		</button>
+
+	// Kolejna różnica polega na tym,że w REakcie nie można zwrócić false W celu zapobiegnięcia wykonania domyślnej akcji. Należy jawnie wywołać preventDefult. Na przykład, w czystym HTML-u, aby zapobiec domyślnej akcji linku, można napisać:
+		<a href="#" onClick="console.log('Kliknięto w link.'); return false">
+			Kliknij mnie
+		</a>
+
+	// W Reakce, zamsit tego, należy npisać:
+		function ActionLink() {
+			function handleClick(e) {
+				e.preventDefault();
+				console.log('Kliknięto link.');
+			}
+
+			return (
+				<a href="#" onClick={handleClick}>
+					Kliknij mnie
+				</a>
+			);
+		}
+
+	// Gdy komponent definiowany jest przy użyciu klasy ze standardu ES6, często definiuje się procedurę obłsugi zdrzenia jako metodę tej klasy.
+	// Na przykład poniższy komponent Toggle wyświetli przycisk, który pozwala użytkownikowi przełączać się miedzy stanami "WŁĄCZONY" i "WYŁĄCZONY":
+		class Toggle extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {isToggleOn: true};
+
+				// Poniższe wiązanie jest niezbędne do prawidłowego przekazania `this` przy wywołaniu funkcji
+				this.handleClick = this.handleClick.bind(this);
+			}
+
+			handleClick() {
+				this.setState(state => ({
+					isToggleOn: !state.isToggleOn
+				}));
+			}
+
+			render() {
+				return (
+					<button onClick={this.handleClick}>
+						{this.state.isToggleOn ? 'WŁĄCZONY' : 'WYŁĄCZONY'}
+					</button>
+				);
+			}
+		}
+
+		ReactDOM.render(
+			<Toggle />,
+			document.getElementById('root')
+		);
+
+	// Należy zwrócić szczególną uwagę na znaczenie this funkcjach zwrotnych (ang. callbacks) używanych w JSX. W JavaScripcie metody klasy nie są domyślnie dowiązane do instancji. Jeśli zapomnisz dowiązać metodę this.handleClick i przekażesz ją jako atrybut onClick, to this przy wywołaniu będzie miało wartość undefined.
+	// To zachowanie nie jest specyficzne dla Reacta; tak właśnie działają funkcje w JavaScripcie. Generalnie, jeśli odwołujesz się do metody bez () po nazwie, jak na przykład onClick={this.handleClick}, pamiętaj, aby zawsze dowiązywać ją do instancji.
+	// Jeśli denerwuje Cię ciągłe wywoływanie bind, istnieją dwa sposoby na obejście tego problemu. Jeśli używasz eksperymentalnej składni publicznych pól klasy, możesz dowiązać metody do instancji poprzez zadeklarowanie ich jako pola klasy:
+		class LoggingButton extends React.Component {
+			// Poniższy kod wymusza dowiązanie `this` wewnątrz handleClick.
+			// Uwaga: to jest składnia *eksperymentalna*.
+			handleClick = () => {
+				console.log('this ma wartość:', this);
+			}
+
+			render() {
+				return (
+					<button onClick={this.handleClick}>
+						Kliknij mnie
+					</button>
+				);
+			}
+		}
+	// Powyższa składnia jest domyślnie włączona w Create React App.
+
+	// Jeśli nie chcesz używać tej składni, możesz skorzystać z funkcji strzałkowej (ang. arrow function):
+		class LoggingButton extends React.Component {
+			handleClick() {
+				console.log('this ma wartość:', this);
+			}
+
+			render() {
+				// Poniższy kod wymusza dowiązanie `this` wewnątrz handleClick.
+				return (
+					<button onClick={(e) => this.handleClick(e)}>
+						Kliknij mnie
+					</button>
+				);
+			}
+		}
+
+	// Problem z taką składnią polega na tym, że za każdym razem, gdy LoggingButton jest renderowany, tworzona jest nowa funkcja. W większości przypadków nie ma to większego znaczenia.
+	// Jeśli jednak będzie przekazywana do komponentów osadzonych głębiej w strukturze, będzie niepotrzebnie powodowała ich ponowne renderowanie. Zalecamy więc korzystanie ze składni pól klasy lub wiązanie metod w konstruktorze, aby uniknąć tego typu problemów z wydajnością.
+
+// Przekazywanie argumentów do procedur obsługi zdarzeń
+
+	// Dość często, na przykład w pętli, potrzebujemy przekazać do procedury obsługi zdarzenia dodatkowy parametr. Na przykład, jeśli zmienna id zawierałaby identyfikator wiersza w tabeli, można by rozwiązać to na dwa sposoby:
+		<button onClick={(e) => this.deleteRow(id, e)}>Usuń wiersz</button>
+		<button onClick={this.deleteRow.bind(this, id)}>Usuń wiersz</button>
+
+	// Obydwie linie robią to samo, przy użyciu, odpowiednio, funkcji strzałkowej oraz Function.prototype.bind.
+	// W obydwóch przypadkach argument e, reprezentujący zdarzenie reactowe, zostanie przekazany jako drugi w kolejności, zaraz po identyfikatorze wiersza. W przypadku funkcji strzałkowej, musimy przekazać go jawnie, natomiast w bind kolejne argumenty są przekazywane do funkcji automatycznie.
+
+// Renderowanie warunkowe
+	// Te rzeczy raczej ogarniasz, więc bez notatek
+
+// Listy i klucze
+	// Wyświetlanie wielu komponentów
+		// Poniżej iterujemy tablicę liczb numbers używając javascriptowej funkcji map(). Zwracamy element <li> dla każdego elementu tablicy. Na koniec przypisujemy powstałą w ten sposób tablicę do zmiennej listItems:
+			const numbers = [1, 2, 3, 4, 5];
+			const listItems = numbers.map((number) =>
+				<li>{number}</li>
+			);
+
+		// Umieszczamy całą tablicę listItems wewnątrz elementu <ul> i wyświetlamy ją w DOM:
+			ReactDOM.render(
+				<ul>{listItems}</ul>,
+				document.getElementById('root')
+			);
+
+		// Możemy przekształcić poprzedni przykład w komponent, który akceptuje tablicę liczb numbers i zwraca listę elementów.
+			function NumberList(props) {
+				const numbers = props.numbers;
+				const listItems = numbers.map((number) =>
+					<li>{number}</li>
+				);
+				return (
+					<ul>{listItems}</ul>
+				);
+			}
+
+			const numbers = [1, 2, 3, 4, 5];
+			ReactDOM.render(
+				<NumberList numbers={numbers} />,
+				document.getElementById('root')
+			);
+
+		// Kiedy uruchomisz powyższy kod, dostaniesz ostrzeżenie o tym, że do elementów listy należy dostarczyć właściwość klucza.
+		// „Klucz” (ang. key) jest specjalnym atrybutem o typie łańcucha znaków, który musisz dodać podczas tworzenia elementów listy. O tym, dlaczego jest to ważne, opowiemy w następnej sekcji.
+
+	// Klucze
+		// Klucze pomagają Reaktowi zidentyfikować, które elementy uległy zmainie, zostały dodane lub usunięte. Klucze powinny zostać nadane elementom wewnątrz tablicy, aby elementy zyskały stabilną tożsamość:
+		// Najlepszym sposobem wyboru klucza jest użycie unikatowego ciągu znaków, który jednoznacznie identyfikuje elementy listy spośród jego rodzeńśtwa. Jako kluczy często będziesz używać ID ze swoich danych.
+		// Jesli w danych nie masz stabilnych ID dla wyświetlananych elementów, w skrajnym przypadku do orkeśłenia klucza możesz użyć elemntu tablicy.
+		// Nie zaleca się używania indeksów jako kluczy, jeżeli kolejność elementów może ulec zmianie. Moze to negatywnie wpłynąć na wydajność i spowodwoać probley ze stanem komponentu
+		// Jeżeli nie zdecydujesz się jawnie ustawić kluczy dla elementów listy, React domyślnie uzyje indeksów jako kluczy.
+
+		// Wyodrębnianie komponentóœ z kluczami
+			// klucze mają sens tylko w kontekście otaczajaćej tablicy.
+			// Dla przykłądu, jeżeli wyodrębnisz komponent ListITem, trzymj klucz na elementach <ListItem /> wewnątrz tablicy zamist na elemencie <li> wewnątrz komponentu ListItem
+
+			// Przykład: Niepoprawne użycie klucza
+				function ListItem(props) {
+					const value = props.value;
+					return (
+						// Źle! Nie ma potrzeby definiowania klucza tutaj:
+						<li key={value.toString()}>
+							{value}
+						</li>
+					);
+				}
+
+				function NumberList(props) {
+					const numbers = props.numbers;
+					const listItems = numbers.map((number) =>
+						// Źle! Klucz powinien zostać określony w tym miejscu:
+						<ListItem value={number} />
+					);
+					return (
+						<ul>
+							{listItems}
+						</ul>
+					);
+				}
+
+				const numbers = [1, 2, 3, 4, 5];
+				ReactDOM.render(
+					<NumberList numbers={numbers} />,
+					document.getElementById('root')
+				);
+
+			// Przykład: Poprawne użycie klucza
+				function ListItem(props) {
+					// Dobrze! Nie ma potrzeby definiowania klucza tutaj:
+					return <li>{props.value}</li>;
+				}
+
+				function NumberList(props) {
+					const numbers = props.numbers;
+					const listItems = numbers.map((number) =>
+						// Dobrze! Klucz powinien zostać ustawiony na elementach wewnątrz tablicy.
+						<ListItem key={number.toString()}
+								  value={number} />
+
+					);
+					return (
+						<ul>
+							{listItems}
+						</ul>
+					);
+				}
+
+				const numbers = [1, 2, 3, 4, 5];
+				ReactDOM.render(
+					<NumberList numbers={numbers} />,
+					document.getElementById('root')
+				);
+
+		// Podstawową regułą jest to, że elementy wewnątrz wywołania map() potrzebują kluczy.
+
+	// Klucze muszą być unikalne tylko wśróð rodzeńśtwa
+		// Klucze używane wewnątrz tablic powinny być unikalne w kontekście swojego rodzeństwa. Jednakże nie muszą one być niepowtarzalne globalnie.
+		// Możemy użyć tych samych kluczy, gdy tworzymy dwie różne tablice:
+			function Blog(props) {
+				const sidebar = (
+					<ul>
+						{props.posts.map((post) =>
+							<li key={post.id}>
+								{post.title}
+							</li>
+						)}
+					</ul>
+				);
+				const content = props.posts.map((post) =>
+					<div key={post.id}>
+						<h3>{post.title}</h3>
+						<p>{post.content}</p>
+					</div>
+				);
+				return (
+					<div>
+						{sidebar}
+						<hr />
+						{content}
+					</div>
+				);
+			}
+
+			const posts = [
+				{id: 1, title: 'Witaj Świecie', content: 'Witamy uczących się Reacta!'},
+				{id: 2, title: 'Instalacja', content: 'Możesz zainstalować Reacta używając npm.'}
+			];
+			ReactDOM.render(
+				<Blog posts={posts} />,
+				document.getElementById('root')
+			);
+
+	// Użycie map() wewnątrz JSX
+		// JSX pzowala na wstawienie dowolnego wyrażenia wewnątrz nawisaów klamrowych, dzięki temu mozemy użyć wyniku funckji map() bez przypisywania do zmiennej:
+			function NumberList(props) {
+				const numbers = props.numbers;
+				return (
+					<ul>
+						{numbers.map((number) =>
+							<ListItem key={number.toString()}
+									  value={number} />
+
+						)}
+					</ul>
+				);
+			}
+
+// Formularze
+	// W Reakce elementy forularza HTML działają trochę inaczej niż pozostałe elementy DOM. Wynika to stąd, że elementy formularza same utrzymują swój wewnętrzny stan.
+	// Dla przykładu przyjrzyjmy sę zwykłemu formualrzowi HTML z jedną wartością - imieniem:
+		<form>
+			<label>
+				Imię:
+				<input type="text" name="name" />
+			</label>
+			<input type="submit" value="Wyślij" />
+		</form>
+
+	// Powyższy formularz posiada domyślną funkcję automatycznego przekierowania przeglądarki do nowej strony po wysłaniu formularza przez użytkownika. Jeśli zależy ci na tej funkcjonalności, to działa ona również w Reakcie. Jednak w większości przypadków dobrze jest mieć funkcję javascriptową, która obsługuje wysyłanie formularza i ma dostęp do podanych przez użytkownika danych.
+	// Standardem stała się obsługa formularzy poprzez tzw. “komponenty kontrolowane”.
+
+	// Komponenty kontrolowane
+		// W HTML-u, elementy formularza takie jak <input>, <textarea> i <select> najczęściej zachowują swój własny stan, który jest aktualizowany na podstawie danych wejściowych podawanych przez użytkownika. Natomiast w Reakcie zmienny stan komponentu jest zazwyczaj przechowywany we właściwości state (pol. stan) danego komponentu. Jest on aktualizowany jedynie za pomocą funkcji setState().
+
+		// Możliwe jest łączenie tych dwóch rozwiązań poprzez ustanowienie reactowego stanu jako “wyłącznego źródła prawdy”. Wówczas reactowy komponent renderujący dany formularz kontroluje również to, co zachodzi wewnątrz niego podczas wypełniania pól przez użytkownika. Element input formularza, kontrolowany w ten sposób przez Reacta, nazywamy “komponentem kontrolowanym”
+
+		// Gdybyśmy chcieli sprawić, aby podany wcześniej przykładowy formularz wyświetlał przy wysłaniu podane przez użytkownika imię, możemy zrobić z niego komponent kontrolowany w następujący sposób:
+
+			class NameForm extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {value: ''};
+
+					this.handleChange = this.handleChange.bind(this);
+					this.handleSubmit = this.handleSubmit.bind(this);
+				}
+
+				handleChange(event) {
+					this.setState({value: event.target.value});
+				}
+
+				handleSubmit(event) {
+					alert('Podano następujące imię: ' + this.state.value);
+					event.preventDefault();
+				}
+
+				render() {
+					return (
+						<form onSubmit={this.handleSubmit}>
+							<label>
+								Imię:
+								<input type="text" value={this.state.value} onChange={this.handleChange} />
+							</label>
+							<input type="submit" value="Wyślij" />
+						</form>
+					);
+				}
+			}
+
+		// Dzięki ustawieniu atrybutu value na elemencie formularza, wyświetlane dane zawsze będą odpowiadały this.state.value. Tym samym reactowy stan jest tutaj źródłem prawdy. Ponieważ zaś handleChange aktualizuje reactowy stan przy każdym wciśnięciu klawisza, wyświetlane dane aktualizują się na bieżąco w miarę wpisywania ich przez użytkownika.
+
+	// Znacznik textarea
+		// W HTML-u element <textarea> definiuje swój tekst poprzez elementy potomne:
+			<textarea>
+			  Cześć, oto przykład tekstu w polu tekstowym.
+			</textarea>
+
+		// Natomiast w Reakcie <textarea> wykorzystuje w tym celu atrybut value. Dzięki temu kod formularza zawierającego <textarea> może być podobny do kodu formularza z jednoliniowym elementem input:
+			class EssayForm extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {
+						value: 'Proszę napisać wypracowanie o swoim ulubionym elemencie DOM'
+					};
+
+					this.handleChange = this.handleChange.bind(this);
+					this.handleSubmit = this.handleSubmit.bind(this);
+				}
+
+				handleChange(event) {
+					this.setState({value: event.target.value});
+				}
+
+				handleSubmit(event) {
+					alert('Wysłano następujące wypracowanie: ' + this.state.value);
+					event.preventDefault();
+				}
+
+				render() {
+					return (
+						<form onSubmit={this.handleSubmit}>
+							<label>
+								Wypracowanie:
+								<textarea value={this.state.value} onChange={this.handleChange} />
+							</label>
+							<input type="submit" value="Wyślij" />
+						</form>
+					);
+				}
+			}
+		// Zwróć uwagę, że wartość this.state.value jest inicjalizowana w konstruktorze, tak aby pole tekstowe zawierało jakiś domyślny tekst.
+
+	// Znacznik select
+		// W HTML-u element <select> tworzy rozwijaną listę. Dla przykładu poniższy kod HTML tworzy rozwijaną listę smaków:
+			<select>
+				<option value="grejpfrutowy">Grejpfrutowy</option>
+				<option value="limonkowy">Limonkowy</option>
+				<option selected value="kokosowy">Kokosowy</option>
+				<option value="mango">Mango</option>
+			</select>
+
+		// Zwróć uwagę na atrybut selected, który sprawia, że opcją wybraną domyślnie jest opcja “Kokosowy”. W Reakcie zamiast atrybutu selected używamy atrybutu value na głównym znaczniku select. W przypadku komponentów kontrolowanych jest to rozwiązanie bardziej dogodne, ponieważ wartość tego atrybutu aktualizowana jest tylko w jednym miejscu:
+
+			class FlavorForm extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {value: "kokosowy"};
+
+					this.handleChange = this.handleChange.bind(this);
+					this.handleSubmit = this.handleSubmit.bind(this);
+				}
+
+				handleChange(event) {
+					this.setState({value: event.target.value});
+				}
+
+				handleSubmit(event) {
+					alert('Twój ulubiony smak to: ' + this.state.value);
+					event.preventDefault();
+				}
+
+				render() {
+					return (
+						<form onSubmit={this.handleSubmit}>
+							<label>
+								Wybierz swój ulubiony smak:
+								<select value={this.state.value} onChange={this.handleChange}>
+									<option value="grejpfrutowy">Grejpfrutowy</option>
+									<option value="limonkowy">Limonkowy</option>
+									<option value="kokosowy">Kokosowy</option>
+									<option value="mango">Mango</option>
+								</select>
+							</label>
+							<input type="submit" value="Wyślij" />
+						</form>
+					);
+				}
+			}
+
+		// Ogólnie elementy <input type="text">, <textarea>, i <select> działają podobnie. Wszystkie przyjmują atrybut value, który można wykorzystać w komponentach kontrolowanych.
+
+		// Wskazówka:
+		// Wartością atrybutu value może być także tablica. Daje to możliwość wyboru spośród wielu opcji w znaczniku select:
+			{/*<select multiple={true} value={['B', 'C']}>*/}
+
+	// Obsługa wielu elementów input
+		// Kiedy zachodzi potrzeba obsługi wielu kontrolowanych elementów input, do każdego elementu można dodać atrybut name oraz pozwolić funkcji obsługującej (ang. handler function) zadecydować o dalszych krokach w zależności od wartości atrybutu event.target.name.
+
+		// Przykład:
+			class Reservation extends React.Component {
+				constructor(props) {
+					super(props);
+					this.state = {
+						wybieraSie: true,
+						liczbaGosci: 2
+					};
+
+					this.handleInputChange = this.handleInputChange.bind(this);
+				}
+
+				handleInputChange(event) {
+					const target = event.target;
+					const value = target.type === "checkbox" ? target.checked : target.value;
+					const name = target.name;
+
+					this.setState({
+						[name]: value
+					});
+				}
+
+				render() {
+					return (
+						<form>
+							<label>
+								Wybiera się:
+								<input
+									name="wybieraSie"
+									type="checkbox"
+									checked={this.state.wybieraSie}
+									onChange={this.handleInputChange} />
+							</label>
+							<br />
+							<label>
+								Liczba gości:
+								<input
+									name="liczbaGosci"
+									type="number"
+									value={this.state.liczbaGosci}
+									onChange={this.handleInputChange} />
+							</label>
+						</form>
+					);
+				}
+			}
+
+		// Zwróć uwagę na wykorzystaną przez nas składnię obliczonych nazw właściwości umożliwioną przez ES6. Pozwala ona na aktualizację klucza stanu odpowiadającego nazwie danego elementu input:
+
+		// Ponadto ponieważ setState() automatycznie scala podany stan częściowy ze stanem aktualnym, funkcja ta wywoływana jest tylko z nowo dostarczonymi danymi.
 
 
+// Wynoszenie stanu w górę
+	// Bardzo często kilka komponentów musi odzwierciedlać jednocześnie te same zmainy w danych. W takim przypadku proponujemy przeniesienie stanu do najbliższego przodka. Zobaczmy, jak wygląda to w praktyce.
 
+	// W tej częsci poradnika stworzymy kalkualtor, który obliczy nam czy woda będzie się gotować w podanej temepraturze.
 
+	// Rozpocznijmy od komponent:
+		function BoilingVerdict(props) {
+			if (props.celsius >= 100) {
+				return <p>Woda będzie się gotować</p>;
+			}
+			return <p>Woda nie będzie się gotować.</p>;
+		}
 
+	// Następnie stwórzmy komponent o nazwie Calculator. Wyrenderuje on element <input>, który pozwoli wpisać temperaturę oraz zachowa jego wartość w this.state.temperature.
+	// Dodatkowo, będzie on renderował komponent BoilingVerdict dla obecnej wartości inputa.
+		class Calculator extends React.Component {
+			constructor(props) {
+				super(props);
+				this.handleChange = this.handleChange.bind(this);
+				this.state = {temperature: ''};
+			}
 
+			handleChange(e) {
+				this.setState({temperature: e.target.value});
+			}
 
+			render() {
+				const temperature = this.state.temperature;
+				return (
+					<fieldset>
+						<legend>Podaj temperaturę w Celsjuszach:</legend>
+						<input
+							value={temperature}
+							onChange={this.handleChange} />
 
+						<BoilingVerdict
+							celsius={parseFloat(temperature)} />
 
+					</fieldset>
+				);
+			}
+		}
+
+	// Dodwaniue drugiego inputa
+
+		// Naszym kolejnym wymogiem jest, aby oprócz inputa do wpisywania temperatury w Celsjuszach, dostarczyć także drugi input, który przyjmie temperaturę w Fahrenheitach. Oba inputy powinny być ze sobą zsynchronizowane.
+		// Zacznijmy od wyizolowania komponentu TemperatureInput z komponentu Calculator. Dodamy do niego nowy atrybut scale, który będzie mógł przyjmować wartość "c" lub "f":
+
+			const scaleNames = {
+				c: 'Celsjuszach',
+				f: 'Fahrenheitach'
+			};
+
+			class TemperatureInput extends React.Component {
+				constructor(props) {
+					super(props);
+					this.handleChange = this.handleChange.bind(this);
+					this.state = {temperature: ''};
+				}
+
+				handleChange(e) {
+					this.setState({temperature: e.target.value});
+				}
+
+				render() {
+					const temperature = this.state.temperature;
+					const scale = this.props.scale;
+					return (
+						<fieldset>
+							<legend>Podaj temperaturę w {scaleNames[scale]}:</legend>
+							<input value={temperature}
+								   onChange={this.handleChange} />
+						</fieldset>
+					);
+				}
+			}
+
+		// Zmieńmy komponent Calculator tak, by renderował dwa osobne inputy z temperaturą:
+
+			class Calculator extends React.Component {
+				render() {
+					return (
+						<div>
+							<TemperatureInput scale="c" />
+							<TemperatureInput scale="f" />
+						</div>
+					);
+				}
+			}
+
+		// Mamy teraz dwa inputy, jednak jeśli podamy temperaturę w jednym z nich, drugi nie zostanie zaktualizowany. Jest to sprzeczne z naszymi wymogami: chcemy, by oba inputy były ze sobą zsynchronizowane.
+		// Nie możemy też wyświetlić BoilingVerdict z poziomu komponentu Calculator. Spowodowane jest to faktem, iż Calculator nie ma dostępu do informacji o obecnej temperaturze, która schowana jest w TemperatureInput.
+
+		// Pisanie funckji konwertujących
+			// Na początek napiszmy dwie funkcje do konwertowania temperatury ze stopni Celsjusza na Fahrenheita i odwrotnie:
+				function toCelsius(fahrenheit) {
+					return (fahrenheit - 32) * 5 / 9;
+				}
+
+				function toFahrenheit(celsius) {
+					return (celsius * 9 / 5) + 32;
+				}
+
+			// Obie te funkcje konwertują liczby. Napiszmy jeszcze jedną funkcję, która jako argumenty przyjmie ciąg znaków temperature oraz funkcję konwertującą,, a zwróci inny ciąg znaków. Użyjemy jej do wyliczenia wartości jednego inputa w oparciu o drugi.
+			// Funkcja zwróci zaokrąglony do trzeciego miejsca po przecinku wynik lub pusty ciąg znaków, jeśli temperature jest nieprawidłowe.
+				function tryConvert(temperature, convert) {
+					const input = parseFloat(temperature);
+					if (Number.isNaN(input)) {
+						return '';
+					}
+					const output = convert(input);
+					const rounded = Math.round(output * 1000) / 1000;
+					return rounded.toString();
+				}
+
+			// Na przykład, tryConvert('abc', toCelcius) zwróci pusty ciąg znaków, natomiast tryConvert('10.22', toFahrenheit) zwróci '50.396'.
+
+		// Wynoszenie stanu w góre
+			// W Reakcie współdzielenie stanu komponentu można osiągnąć poprzez utworzenie stanu w najbliższym wspólnym przodku. Nazywa się to “wynoszeniem stanu w górę” (ang. lifting state up).
+			// To jest lepiej wytłumaczone w poniższym filmiku, tam masz lepszy przykład:
+				// https://www.youtube.com/watch?v=ZluNj0-NpNI
+
+		// Wnioski ( z dokumentacji )
+			// Wszelkie dane, które zmieniają się w apliakcji reactowej, powinny mieć swoje pojedyńcze "źródło prawdy". Na ogół stan dodaje się najpeirw do komponentu, który potrzebuje go podczas renderowania.
+			// Następnie, jeśli inny komponent potrzebuje  komponent potrzebuje tych samych danych, możemy "wynieśc je w górę" do najbliższego wspólnego przodka. Zamiast próbować synchronizować stan między komponentami, lepiej polegać na przepływie danych "z góry na dół"
+
+// Kompozycja a dziedziczenie
+	// React posiada potężny model kompozycyjny, z którego zalecamy korzystać zamiast dziedziczenia, aby komponentów można było używać wielokrotnie.
+
+		// Zawieranie
 
 
 // Z JAKIEGOŚ KURSU (Chyba YouTubera z Polski)

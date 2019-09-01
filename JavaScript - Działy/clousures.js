@@ -1,6 +1,6 @@
 // CLOUSURES - DOMKNIĘCIA
-	// Chodzi w gruncie o dostep do zmiennje spoza aktualnego zasięgu
-	// Załóżmy, że chcemy uzyskać dostęp do zmiennej poza funkcją, w któ©ej ta zmienna istnieje
+	// Chodzi w gruncie o dostep do zmiennej spoza aktualnego zasięgu
+	// Załóżmy, że chcemy uzyskać dostęp do zmiennej poza funkcją, w której ta zmienna istnieje
 
 	// Poniżej przykłądy, które mogą być technicznie uznawane za "Clousres", ale to nie do końca jest Clousures co do zasady
 	// Przykład 1 - RETURN
@@ -27,7 +27,7 @@
 	// Przykład 2 - ZAKRESY
 		// Tutaj też to jest uznawane troche za Clousrues,
 		// bo funkcja userInfo, korzysta ze stałej zdefiniowanej wyżej, w zakresie globlanym (userAge)
-		// Wciąż to nie jest do końća CLousures
+		// Wciąż to nie jest do końca CLousures
 		// Zasięg leksykalny jest częścią mechanizmu CLOSURE.
 		const userAge = 23;
 
@@ -108,3 +108,21 @@
 				// Powyższy rpzykłąd świadczy o tym, że mamy możliwośc modyfikowania naszego let liczbaWywolan
 				// Nie tylko mamy do niej dostęp ale możemy się z nią "komunikować"
 				// Mamy tu "dwu stronną" relację, możemy modyfikować nasz parametr
+
+// W SKRÓCIE
+	// Domknięcia występują wtedy gdy funkcja może zapamiętać i uzyskać dostęp
+	// do swojego zakresu leksykalnego, nawet po jej wywołaniu na zewnątrz tego zakresu
+		// Przykład:
+			const dodaj2 = function(a) {
+				let b = 10;
+				return function(c) {
+					let d = 10;
+					return function(e) {
+						return a + b + c + d + e
+					}
+				}
+			}
+
+			const dodajWszystko2 = dodaj2(10);
+			console.log(dodajWszystko2); // zwróci funkcje
+			console.log(dodajWszystko2(10)(10)); // zwróci 50

@@ -49,3 +49,14 @@
 				// wiec plus IIFE, jest taki, że mamy pewność, ze np. zmienna zapsiana w IIFE, nie będzie naruszana przez inny kod
 				// ani nie naruszy innego kodu, bo nie jesteś w stanie jej wywołać (chyba o to chodzi)
 
+			// DOBRY MATERIAŁ DO IIFE
+				// https://medium.com/javascript-in-plain-english/https-medium-com-javascript-in-plain-english-stop-feeling-iffy-about-using-an-iife-7b0292aba174
+
+// W SKRÓCIE
+	// Jeśli chcemy, żeby do naszej funckji nie było dostępu i nikt z niej nie korzystał, (lub skorzystał przypadkowo), to tworzymy IIFE.
+	// Dlatego często we frameworkach, cały kod jest zawarty w IIFE
+
+		// Przykład:
+			(function(name) {
+				console.log('inside IIFE: Hello ' + name);
+			})("Karol"); // IIFE (klasyczyny przykład)

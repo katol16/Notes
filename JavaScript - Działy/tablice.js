@@ -54,3 +54,7 @@
             // Metody na tablicach możemy wywołać też w inny sposób, nie tylko za pomocą adnotacji kropkowej jak "arr.pop;"
                 // Przykład
                 // arr.pop; i arr["pop"](); ZADZIAŁA TAK SAMO
+
+// W SKRÓCIE:
+	// Tablice to typy referencyjne
+	// Dobrze myśleć o tablicy jako "Elementy tablicy to pary INDEKS - WARTOŚĆ", gdzie indeks, to indeks tablicy

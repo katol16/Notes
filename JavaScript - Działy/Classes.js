@@ -51,7 +51,7 @@ CLASSES
 					Ciało klasy jest wykonywane w trybie ścisłym (ang. strict mode)
 
 				Konstruktor
-					Constructor jest szczególną metodą, która służy tworzeniu i inicjalizowaniu obiketu zdefiniowanego słowem kluczowym class.
+					Constructor jest szczególną metodą, która służy tworzeniu i inicjalizowaniu obiektu zdefiniowanego słowem kluczowym class.
 					Aby wywołąć konstruktow klasy bazowej, należy użyć słowa kluczowego "super".
 
 				Metody statyczne (Doczytaj o tym)
