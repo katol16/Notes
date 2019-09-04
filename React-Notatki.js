@@ -1118,6 +1118,42 @@
 		// Zawieranie
 
 
+
+// HOOKI (NOWOŚĆ)
+  // Wprowadzenie do hooków
+    // Hooki są nowym dodatkiem w Reakcie 16.8. Pozwalają one używać stanu i innych funkcjonalności Reacta, bez użycia klas.
+      import React, { useState } from 'react';
+
+			function Example() {
+			  // Zadeklaruj nową zmienną stanu, którą nazwiemy "count"
+        const [count, setCount] = useState(0);
+
+        return (
+          <div>
+            <p>Naciśnięto {count} razy</p>
+            <button onCLick={() => setCount(count + 1)}>
+              Naciśnij mnie
+            </button>
+          </div>
+        );
+      }
+
+    // UWAGA!
+      // React 16.8.0 jest pierwszą wersją, która wspiera hooki. Podczas aktualizacji nie zapomnij zaktualizować wszystkich paczek, w tym React DOM. React Native wspeira hooki od werjsi 0.59
+
+  // Wprowadzenie wideo (ZOBACZ!)
+     // https://www.youtube.com/watch?v=dpw9EHDh2bM
+
+  // Bez krytycznych zmian
+    // Zanim przejdziemy dalej, zauważ że hooki są:
+    //   - Całkowicie opcjonalne. Możesz wypróbować hooki w kilku komponentach, bez przepisywania istniejącego kodu. Jeżeli jednak nie masz ochoty, nie musisz ich jeszcze stosować ani uczyć się o nich.
+    //   - 100% kompatybilne wstecznie. Hooki nie zawierają żadnych zmian, które mogłyby zepsuć istniejący kod.
+    //   - Dostępne już teraz. Hooki są dostępne od wersji 16.8.0.
+
+    //   Nie ma planów na usunięcie klas z Reacta. Możesz przeczytać o strategii stopniowego wdrażania hooków w kolejnym podrozdziale tej strony.
+
+    //   Hooki nie zastępują twojej wiedzy na temat Reacta. Zamiast tego wprowadzają bardziej bezpośredni interfejs API dla mechanizmów Reacta, które już znasz: właściwości (ang. props), stanu, kontekstu, referencji (ang. refs) i cyklu życia (ang. lifecycle).
+
 // Z JAKIEGOŚ KURSU (Chyba YouTubera z Polski)
 
 // React Hooks 
