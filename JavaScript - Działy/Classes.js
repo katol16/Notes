@@ -1,8 +1,30 @@
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+TE NOTATKI SĄ DO PRZEANALZIOWANIA JESZCZE RAZ!!!!!
+
 CLASSES
-	Klasy w JS zostąły wrpwoadzone w ECMAScript 2015. Składnia klas nie wprowadza nowego zorientowanego obiekotwego obiektowo modelu dziedziczenia. Klasy wprowadzją znacznie prostszą i bardziej czytelną skłądnię do tworzenia obiektów i dziedziczenia.
+	Klasy w JS zostały wrpwoadzone w ECMAScript 2015. Składnia klas nie wprowadza nowego zorientowanego obiekotwego obiektowo modelu dziedziczenia.
+	Klasy wprowadzją znacznie prostszą i bardziej czytelną skłądnię do tworzenia obiektów i dziedziczenia.
 
 	Definiowanie klas
-		Klasy są w zasadzie "szczególnymi funkcjami". Podobnie jak w fukncji można definiować wyrażenie function i deklaracje funkcji, tak skłądnia klasy posiada dwa komponenty: Wyrażenie class i dekalracje klasy
+		Klasy są w zasadzie "szczególnymi funkcjami". Podobnie jak w fukncji można definiować wyrażenie function i deklaracje funkcji, taka składnia klasy posiada dwa komponenty: Wyrażenie class i dekalracje klasy
 
 		Deklaracja klas
 			Aby zadeklarować kalsę należy użyć wyrażenia "class" wraz z nazwą
@@ -16,7 +38,7 @@ CLASSES
 				}
 
 			Hoisting
-				Ważną różnicą pomiędzy deklaracją funkcji a deklaracją klasy jest to, że deklaracje funckji są rpzenoszone na pcozątek (hoisted) a klas nie.
+				Ważną różnicą pomiędzy deklaracją funkcji a deklaracją klasy jest to, że deklaracje funckji są przenoszone na początek (hoisted) a klas nie.
 				Najpeirw musisz zadekalrować swoją klase by mięc do niej dostęp
 
 					var p = new Prostokat(); // ReferenceError
@@ -42,7 +64,7 @@ CLASSES
 						}
 					};
 
-				Uwaga: WYrażenia class dotykają te same kwestie związane z przenoszeniem na pcozątek (ang. hoisting) co wspomnianych dekalracji klas.
+				Uwaga: Wyrażenia class dotykają te same kwestie związane z przenoszeniem na początek (ang. hoisting) co wspomnianych deklaracji klas.
 
 		Ciało klasy i definicje metod
 			Ciało klasy jest umieszczane w nawiasach klamrowych {}. to tam definiuje się metody, czy konstruktory
@@ -52,7 +74,7 @@ CLASSES
 
 				Konstruktor
 					Constructor jest szczególną metodą, która służy tworzeniu i inicjalizowaniu obiektu zdefiniowanego słowem kluczowym class.
-					Aby wywołąć konstruktow klasy bazowej, należy użyć słowa kluczowego "super".
+					Aby wywołać konstruktor klasy bazowej, należy użyć słowa kluczowego "super".
 
 				Metody statyczne (Doczytaj o tym)
 
@@ -71,7 +93,7 @@ CLASSES
 					}
 				}
 
-				var d = new Dog('Mitzie');
+				var d = new Animal('Mitzie');
 				d.speak();
 
 			Jeśli w podklasie znajduje się konstruktor, musi najpierw wywołąć super() rpzed użyciem "this".

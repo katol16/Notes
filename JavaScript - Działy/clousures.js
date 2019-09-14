@@ -2,7 +2,7 @@
 	// Chodzi w gruncie o dostep do zmiennej spoza aktualnego zasięgu
 	// Załóżmy, że chcemy uzyskać dostęp do zmiennej poza funkcją, w której ta zmienna istnieje
 
-	// Poniżej przykłądy, które mogą być technicznie uznawane za "Clousres", ale to nie do końca jest Clousures co do zasady
+	// Poniżej przykłady, które mogą być technicznie uznawane za "Clousres", ale to nie do końca jest Clousures co do zasady
 	// Przykład 1 - RETURN
 		function example() {
 			const insideVar = "zmienna stworzona w funkcji";
@@ -25,7 +25,7 @@
 			console.log(outsideVar2); // zwróci "zmienna2 stworzona w funkcji"
 
 	// Przykład 2 - ZAKRESY
-		// Tutaj też to jest uznawane troche za Clousrues,
+		// Tutaj też to jest uznawane troche za Clousures,
 		// bo funkcja userInfo, korzysta ze stałej zdefiniowanej wyżej, w zakresie globlanym (userAge)
 		// Wciąż to nie jest do końca CLousures
 		// Zasięg leksykalny jest częścią mechanizmu CLOSURE.
@@ -37,7 +37,7 @@
 		}
 
 		const newUser = userInfo();
-		console.log(newUser);
+		console.log(newUser); // Adam23
 
 	// TERAZ co to jest CLOSURES (DOMKNIĘCIA)
 		// Domknięcia występują wtedy gdy funkcja może zapamiętać i uzyskać dostęp

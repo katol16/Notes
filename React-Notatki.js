@@ -1122,21 +1122,21 @@
 // HOOKI (NOWOŚĆ)
   // Wprowadzenie do hooków
     // Hooki są nowym dodatkiem w Reakcie 16.8. Pozwalają one używać stanu i innych funkcjonalności Reacta, bez użycia klas.
-      import React, { useState } from 'react';
+    import React, { useState } from 'react';
 
-			function Example() {
+	function Example() {
 			  // Zadeklaruj nową zmienną stanu, którą nazwiemy "count"
-        const [count, setCount] = useState(0);
+		const [count, setCount] = useState(0);
 
-        return (
-          <div>
-            <p>Naciśnięto {count} razy</p>
-            <button onCLick={() => setCount(count + 1)}>
-              Naciśnij mnie
-            </button>
-          </div>
-        );
-      }
+		return (
+		  <div>
+			<p>Naciśnięto {count} razy</p>
+			<button onCLick={() => setCount(count + 1)}>
+			  Naciśnij mnie
+			</button>
+		  </div>
+		);
+  	}
 
     // UWAGA!
       // React 16.8.0 jest pierwszą wersją, która wspiera hooki. Podczas aktualizacji nie zapomnij zaktualizować wszystkich paczek, w tym React DOM. React Native wspeira hooki od werjsi 0.59
