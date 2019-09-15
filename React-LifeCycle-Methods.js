@@ -44,7 +44,7 @@
 
     // INITAL RENDERING
 
-    // UWAGA! Konstruktor jest meisjcem w któ©ym należy inicjować stan komponentu
+    // UWAGA! Konstruktor jest meisjcem w którym należy inicjować stan komponentu
 
     // Jeśli tworzymy nromalny class based component, to na początku wywoła się constructor.
     // Możesz to sprawdzić za pomocą console.log();
