@@ -156,7 +156,7 @@
 		-Funkcje są obiektami.
 		-Od innych obiektów wyróżnia je właściwość [[Call]]
 		-Funckje są "mini programami" z których można zbudować duży program
-		- Funkcje przypominają tajemnicze pudełko. Do któ©ego coś wpada i zmktórego coś wychodzi (Dane, return, mogą być efekty uboczne(nie muszą być negatywne))
+		- Funkcje przypominają tajemnicze pudełko. Do którego coś wpada i zmktórego coś wychodzi (Dane, return, mogą być efekty uboczne(nie muszą być negatywne))
 
 	Wywołąnie funkcji
 		function addFive(a) {
@@ -184,9 +184,9 @@
 
 		RETURN
 
-			-Po return umieszczamy wyrażnei, które zwracamy, Jelsi po return ne będzie wyrażenia zwracamy undefined, jeśłi brak return to zwraca undefined.
+			-Po return umieszczamy wyrażnei, które zwracamy, Jelsi po return ne będzie wyrażenia zwracamy undefined, jeśli brak return to zwraca undefined.
 			-Return kończy też funkcję i wraca do meijsca w którym zostałą wywołana
-			-FUnckja czasami hest po to by coś zrobić, ale najczęściej po to by coś zrobić i zwrócić wrtość
+			-Funkcja czasami jest po to by coś zrobić, ale najczęściej po to by coś zrobić i zwrócić wrtość
 
 		FUNCKJA MOŻE WYGLĄDAĆ TAK:
 
@@ -212,7 +212,7 @@
 
 		FUNKCJE MOŻNA WYWOŁAĆ
 			-wieloktortnie
-			-bo tylko funckje mają właściwość [[call]]
-			-za pomocą oepratora wywołania () np. name()
+			-bo tylko funkcje mają właściwość [[call]]
+			-za pomocą operatora wywołania () np. name()
 
 		Funckaj zawsze coś zwraca (nawet jak nie ma return w ciele)

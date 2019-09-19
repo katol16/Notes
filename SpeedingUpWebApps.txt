@@ -1,0 +1,21 @@
+How to speed up Your webapp
+	1. Minimize HTTP requests
+	2. Minify and combine files
+	3. Use asynchronous loading for CSS and JavaScript files
+	4. Defer JavaScript loading
+	5. Minimize time to first byte
+	6. Reduce server response time
+	7. Choose the right hosting option for your needs
+	8. Run a compression audit
+	9. Enable compression
+	10. Enable browser caching
+	11. Reduce image sizes
+	12. Use a CDN
+	13. Use external hosting platforms
+	14. Optimize CSS delivery
+	15. Prioritize above-the-fold content (lazy loading)
+	16. Reduce the number of plugins you use on your site
+	17. Reduce redirects
+	18. Reduce external scripts
+	19. Monitor your speed over time
+	20. Monitor mobile page speed

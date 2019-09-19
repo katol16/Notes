@@ -14,7 +14,7 @@ JavaScript:
         }
     Po wpisaniu tego nie będziesz mógl na nic kliknąć, aż w końcu przeglądarka się zawiesi, luz wyrzuci bład
 
-    Co zrobić aby zaradzić tmeu blokowaniu? Tu do pomocy przychodzi asynchronicznny JS
+    Co zrobić aby zaradzić temu blokowaniu? Tu do pomocy przychodzi asynchronicznny JS
     Poniżej jak to działa i teoria
         Asynchroniocnzosc to wykonywnaie wielu operacji w tym samym czasie
 
